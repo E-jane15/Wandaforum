@@ -7,8 +7,13 @@ export default {
   theme: {
     extend: {
       colors:{
-        purple: '#2A1F36',
-      }
+        purple: '#7A24A1',
+        darkpurple: '#281b32',
+        orange: '#FEAA53',
+      },
+      fontFamily:{
+        sans:['Montserrat', 'sans-serif'],
+      },
     },
   },
   plugins: [],
