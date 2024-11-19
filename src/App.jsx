@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Routes>
       <Route index element={<HomeScreen />} />
-      <Route path="/peer-mock" element={<PeermockHome />} />
+      <Route path="/peermock" element={<PeermockHome />} />
     </Routes>
   );
 };

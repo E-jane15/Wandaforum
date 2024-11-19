@@ -11,6 +11,8 @@ export default {
         darkpurple: '#281b32',
         orange: '#FEAA53',
         purple2: '#C749E4',
+        purple3: '#332C3F',
+        gold: '#DFAf37'
       },
       fontFamily:{
         sans:['Montserrat', 'sans-serif'],
