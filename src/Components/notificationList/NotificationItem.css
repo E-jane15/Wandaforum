@@ -1,0 +1,21 @@
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .notification-item.important {
+    background: #fff5f5;
+  }
+  
+  .notification-item .notification-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification-time {
+    color: #888;
+    font-size: 12px;
+  }
+  

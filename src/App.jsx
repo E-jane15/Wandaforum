@@ -11,6 +11,8 @@ import Contact from "./pages/Contact/contact";
 import Pricing from "./pages/Pricing";
 import QuestionPage from "./pages/Questions/QuestionPage";
 import Community from './pages/Community/Community';
+import Dashboard from './pages/Dashboard';
+import './App.css';
 
 const App = () => {
   return (
