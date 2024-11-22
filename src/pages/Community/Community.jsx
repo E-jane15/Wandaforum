@@ -1,10 +1,10 @@
-
+// Community.jsx
 "use client";
 
 import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
-import QuestionForm from "./QuestionForm";
-
+// import QuestionFeed from '../../Components/Questions/QuestionFeed';
+import QuestionForm from '../../Components/Questions/QuestionForm';
 
 const Community = () => {
   return (
@@ -17,18 +17,10 @@ const Community = () => {
           </h1>
           <QuestionForm />
         </div>
-       
-        
+        {/* Add your questions list content here */}
       </div>
     </div>
   );
 };
 
 export default Community;
-
-
-
-
-
-
-
