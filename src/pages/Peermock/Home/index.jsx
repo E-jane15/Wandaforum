@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../../Components/Navbar/Navbar";
 import hero_image from "../../../assets/hero_image.png";
 import join_image from "../../../assets/join_image.png";
@@ -11,57 +11,102 @@ import number_two from "../../../assets/number_two.svg";
 import number_three from "../../../assets/number_three.svg";
 import Workcard from "../../../Components/Workcard/Workcard";
 import TestimonialCard from "../../../Components/TestimonialCard/TestimonialCard";
+import InterviewTypeModal from "../../../Components/Modals/InterviewTypeModal";
+import PeerTypeModal from "../../../Components/Modals/PeerTypeModal";
+import PracticeLevelModal from "../../../Components/Modals/PracticeLevelModal";
+import TimeModal from "../../../Components/Modals/TimeModal";
+import FinalModal from "../../../Components/Modals/FinalModal";
+import { useSelector } from "react-redux";
 
 function PeermockHome() {
   const workcards = [
     {
-      number: number_one ,
+      number: number_one,
       heading: "Schedule a session",
-      paragraph: "Join today or pre-schedule a practice session that suits youravailability, skills and experience.",
+      paragraph:
+        "Join today or pre-schedule a practice session that suits youravailability, skills and experience.",
     },
     {
-      number: number_two ,
+      number: number_two,
       heading: "Get paired",
-      paragraph: "Get paired automatically with peer preparing for similar interviews. Take turns playing the roles of interviewer and interviewee.",
+      paragraph:
+        "Get paired automatically with peer preparing for similar interviews. Take turns playing the roles of interviewer and interviewee.",
     },
     {
       number: number_three,
       heading: "Share Feedback",
-      paragraph: "Exchange  keynotes with partner after the session to improve for next time.",
+      paragraph:
+        "Exchange  keynotes with partner after the session to improve for next time.",
     },
   ];
 
   const testimonialCards = [
     {
-      test_pic: number_one ,
+      test_pic: number_one,
       test_name: "Jane",
       test_profession: "Frontend Developer",
-      test_company:'Wandaprep',
-      testimonial:'Peer-peer mock interviews are the real deal. I totally recommend.',
+      test_company: "Wandaprep",
+      testimonial:
+        "Peer-peer mock interviews are the real deal. I totally recommend.",
     },
     {
-      test_pic: number_one ,
+      test_pic: number_one,
       test_name: "Kelly",
       test_profession: "Devops Specialist",
-      test_company:'Wandaprep',
-      testimonial:'Peer-peer mock interviews are the real deal. I totally recommend.',
+      test_company: "Wandaprep",
+      testimonial:
+        "Peer-peer mock interviews are the real deal. I totally recommend.",
     },
     {
-      test_pic: number_one ,
+      test_pic: number_one,
       test_name: "Angela",
       test_profession: "UI/UX Designer",
-      test_company:'Wandaprep',
-      testimonial:'Peer-peer mock interviews are the real deal. I totally recommend.',
+      test_company: "Wandaprep",
+      testimonial:
+        "Peer-peer mock interviews are the real deal. I totally recommend.",
     },
   ];
 
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpen = () => {
+    document.body.classList.add("overflow-hidden");
+    setOpenModal(true);
+  };
+  const handleClose = () => {
+    document.body.classList.remove("overflow-hidden");
+    setOpenModal(false);
+  };
 
+  const selectItem = useSelector((state)=>state.selections)
+
+  console.log(selectItem)
+
+  const [step, setStep] = useState(1);
   return (
     <div>
+      {openModal ? (
+        step === 1 ? (
+          <InterviewTypeModal
+            close={handleClose}
+            setStep={setStep}
+            step={step}
+          />
+        ) : step === 2 ? (
+          <PeerTypeModal close={handleClose} setStep={setStep} step={step} />
+        ) : step === 3 ? (
+          <PracticeLevelModal
+            close={handleClose}
+            setStep={setStep}
+            step={step}
+          />
+        ) : step === 4 ? (
+          <TimeModal close={handleClose} setStep={setStep} step={step} />
+        ) : step === 5 ? (<FinalModal close={handleClose} setStep={setStep} step={step}/>) :undefined
+      ) : undefined}
       <Navbar />
 
       {/* ---------------First Section----------------*/}
-      <div className="text-white px-20 flex items-center justify-between">
+      <div className="text-white px-20 flex items-center justify-between ">
         <div className="basis-3/5">
           <p className=" text-6xl bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent font-bold ">
             Practice with peers, Succeed in careers.
@@ -71,7 +116,10 @@ function PeermockHome() {
             land their dream job. Practice real interview questions and get
             real-time feedback.
           </p>
-          <button className="bg-purple px-4 py-3 rounded-full">
+          <button
+            className="bg-purple px-4 py-3 rounded-full"
+            onClick={handleOpen}
+          >
             Schedule a session
           </button>
         </div>
@@ -150,18 +198,20 @@ function PeermockHome() {
 
       {/* ---------------Fifth Section----------------*/}
       <div className="text-white px-20 mt-20 mb-20">
-        <p className="text-orange text-3xl  font-bold text-center">Testimonials</p>
+        <p className="text-orange text-3xl  font-bold text-center">
+          Testimonials
+        </p>
         <div className="grid grid-cols-3 gap-20">
-           {testimonialCards.map((test_cards, index)=>(
+          {testimonialCards.map((test_cards, index) => (
             <TestimonialCard
-            key={index}
-            test_pic={test_cards.test_pic}
-            test_name={test_cards.test_name}
-            test_profession={test_cards.test_profession}
-            test_company={test_cards.test_company}
-            testimonial={test_cards.testimonial}
+              key={index}
+              test_pic={test_cards.test_pic}
+              test_name={test_cards.test_name}
+              test_profession={test_cards.test_profession}
+              test_company={test_cards.test_company}
+              testimonial={test_cards.testimonial}
             />
-           ))}
+          ))}
         </div>
       </div>
     </div>
