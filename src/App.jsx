@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomeScreen from "./pages/Home";
+import HomeScreen from "./pages/Home/Home.jsx";
 import PeermockHome from "./pages/Peermock/Home";
 import Pricing from "./pages/Pricing";
 
