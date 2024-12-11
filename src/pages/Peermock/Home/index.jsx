@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../Components/Navbar/Navbar";
+import React from "react";
 import hero_image from "../../../assets/hero_image.png";
 import join_image from "../../../assets/join_image.png";
 import videocall_image from "../../../assets/videocall_image.png";
@@ -19,6 +20,7 @@ import TimeModal from "../../../Components/Modals/TimeModal";
 import FinalModal from "../../../Components/Modals/FinalModal";
 import { useSelector, useDispatch } from "react-redux";
 import { cancelInterview } from "../../../redux/selectionSlice";
+
 
 function PeermockHome() {
   const workcards = [
@@ -220,7 +222,7 @@ function PeermockHome() {
       {/* ---------------Third Section----------------*/}
       <div className="text-white px-20 mt-12">
         <p className=" text-3xl  font-bold text-center  ">
-          <span className="text-orange">Why </span>join
+          <span className="text-orange">Why</span>join
         </p>
         <div className="flex items-center justify-between">
           <div className="basis-3/5">

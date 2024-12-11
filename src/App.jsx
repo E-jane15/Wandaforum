@@ -13,6 +13,7 @@ import QuestionPage from "./pages/Questions/QuestionPage";
 import Community from './pages/Community/Community';
 import Dashboard from './pages/Dashboard';
 import './App.css';
+import Settings from "./pages/notification/Settings";
 
 const App = () => {
   return (
@@ -27,12 +28,14 @@ const App = () => {
         <Route path="/refer"   element={<Refer/>}/>
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/pricing" element={<Pricing/>} />
-        <Route path = "/community/*" element = {<Community/>}/>
+      <Route path="/notification" element={<Settings/>} />
+      <Route path = "/community/*" element = {<Community/>}/>
       </Routes>
         </UserProvider>
           
     
   );
 };
+
 
 export default App;
