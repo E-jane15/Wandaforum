@@ -24,18 +24,15 @@ const PracticeLevelModal = ({setStep, step, close}) => {
      const selectedItem = useSelector((state) => state.selections);
 
       const handleNext = () => {
-        console.log("Next clicked");
         setStep(step + 1);
       };
     
       const handleBack = () => {
-        console.log("Back clicked");
         setStep(step - 1);
       };
 
       const handleClick = (heading) => {
         dispatch(selectItem({...selectedItem, practice: heading }));
-        console.log("Clicked Me!", heading);
       };
     
   return (
