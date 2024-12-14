@@ -17,7 +17,7 @@ export default {
         sans: ["Montserrat", "sans-serif"],
       },
       animation: {
-        float: "float 5s ease-in-out infinite",
+        float: "float 3s ease-in-out infinite",
       },
       keyframes: {
         float: {

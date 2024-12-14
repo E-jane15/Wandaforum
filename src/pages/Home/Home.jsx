@@ -33,8 +33,9 @@ function HomeScreen() {
             Get Started
           </button>
         </div>
-        <div className="basis-2/5 animate-float">
-          <img src={hero_image2} alt="" className=" " />
+
+        <div className="  relative   bg-cover bg-center min-h-screen basis-2/5 z-0 ">
+          <img src={hero_image2} alt="" className="animate-float " />
         </div>
       </div>
       <div className="mt-32 flex  flex-col items-center justify-center">
@@ -43,16 +44,16 @@ function HomeScreen() {
           Join over 50,000+ people using WandaForum
         </p>
       </div>
-      <section class="relative bg-gradient-to-tr from-purple3 to-purple4 mt-24  py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center  rounded-3xl shadow-lg p-8">
-        <div class="flex">
+      <section className="relative bg-gradient-to-tr from-purple3 to-purple4 mt-24  py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center  rounded-3xl shadow-lg p-8">
+        <div className="flex">
           <img
             src={community}
             alt="Description"
             class="w-1/3  rounded-lg shadow-lg w-50 md:w-1/2 flex justify-center items-start"
           />
-          <div class="ml-8 text-white  w-full md:w-1/2 md:mt-0  md:text-left justify-start">
-            <h2 class="text-5xl font-bold text-orange">Our Community</h2>
-            <p class="mt-12 text-4xl mt-4 leading-relaxed">
+          <div className="ml-8 text-white  w-full md:w-1/2 md:mt-0  md:text-left justify-start">
+            <h2 className="text-5xl font-bold text-orange">Our Community</h2>
+            <p className="mt-12 text-4xl mt-4 leading-relaxed">
               enables you to chat with friends , strangers about a lot of
               interview questions to learn smoothly
             </p>
@@ -76,7 +77,7 @@ function HomeScreen() {
               actually ask and watch how experts answer them in over 100+ live
               video answers.
             </p>
-            <button className="mt-6 bg-purple4 px-6 py-3 rounded-full hover:bg-purple5 text-white">
+            <button className="mt-6 bg-purple px-6 py-3 rounded-full hover:bg-purple5 text-white">
               Practice questions
             </button>
           </div>
@@ -144,7 +145,7 @@ function HomeScreen() {
       {/* Footer */}
       <footer
         className=" py-8 mt-24 bg-[right_100%]  bg-cover bg-no-repeat h-screen w-full"
-        style={{ backgroundImage: `url(${bottom_vector})`}}
+        style={{ backgroundImage: `url(${bottom_vector})` }}
       >
         <div className="max-w-6xl mx-auto px-6 text-center  ">
           <div className="flex flex-col items-center justify-center space-y-2">
@@ -202,4 +203,3 @@ function HomeScreen() {
 }
 
 export default HomeScreen;
-    

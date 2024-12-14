@@ -6,4 +6,7 @@
 
 body{
     @apply bg-darkpurple font-sans;
+    position: relative;
+    overflow: visible;
+    z-index: 0;
 }
