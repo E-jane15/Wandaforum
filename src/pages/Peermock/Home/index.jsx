@@ -103,6 +103,7 @@ function PeermockHome() {
   // Remaining credits
   const remainingCredits = credits - scheduledInterviews.length;
 
+ 
   return (
     <div>  {/*Condition to open modals when schedule a session button is clicked*/}
       {openModal ? (
