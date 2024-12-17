@@ -2,7 +2,7 @@ import React from 'react'
 
 const PaymentMethod = () => {
   return (
-    <div className="bg-purple px-10 py-20 pb-20">
+    <div className="bg-darkpurple/70 rounded-lg px-10 py-20 pb-20">
       <div>
         <p className="text-3xl mb-2">
           <span className="text-orange">Payment</span> Method
@@ -17,7 +17,7 @@ const PaymentMethod = () => {
         </p>
       </div>
 
-      <div className="bg-darkpurple p-4 mt-3">
+      <div className="bg-darkpurple rounded-lg p-4 mt-3">
         <div className="mb-3 px-3">
           <input type="checkbox" />
           <label htmlFor=""> Credit Card</label>
@@ -60,10 +60,9 @@ const PaymentMethod = () => {
             />
           </div>
         </form>
-
-        <label htmlFor="" className='block text-sm font-medium px-3 py-3'>
-          <input type="checkbox" name="" id="" />
-          Use a different payment card to process the payment
+        <input type="checkbox" name="" id="" />
+        <label htmlFor="" className='text-sm font-normal px-3 py-3'>
+           Use a different payment card to process the payment
         </label>
         <button className='bg-purple px-7 py-3 rounded-full text-lg my-5 mx-auto block'>Proceed to checkout</button>
       </div>

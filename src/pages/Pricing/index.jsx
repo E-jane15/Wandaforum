@@ -48,8 +48,9 @@ const Pricing = () => {
     
 
   return (
-    <div className='text-white' >
+    <div className='text-white bg-[#592a9c]/40' >
         <Navbar/>
+        <div className=''>
         <div className='text-center my-32'>
             <p className='text-6xl bg-gradient-to-r from-purple2 to-orange bg-clip-text text-transparent font-bold'>Find the Right Plan</p>
             <p className='text-lg mt-7'>Get started with a wandaforum subscription that works for you.</p>
@@ -73,7 +74,7 @@ const Pricing = () => {
           <PaymentMethod className="basis-3/5" />
          </div>
          <p>Hello</p>
-
+         </div>
     </div>
   )
 }

@@ -10,13 +10,13 @@ const BillingPlan = () => {
   ];
 
   return (
-    <div className="bg-purple px-6 pr-20 pb-10 ">
+    <div className="bg-darkpurple/70  rounded-lg px-6 pr-20 pb-10 ">
         <p className="text-orange text-sm py-8 pb-14 my-6">Billing Plan</p>
       {packages.map((pkg) => (
         <div
           key={pkg.id}
-          className={`relative border p-4 rounded-lg w-52 mb-6 bg-darkpurple ${
-            selectedPackage === pkg.id ? "border-blue-500 shadow-lg" : "border-gray-300"
+          className={`relative  p-4 rounded-lg w-52 mb-6 bg-darkpurple ${
+            selectedPackage === pkg.id ? "bg-gradient-to-b from-purple to-darkpurple" : "undefined"
           }`}
         >
           {/* Checkbox */}
@@ -25,7 +25,7 @@ const BillingPlan = () => {
             id={`package-${pkg.id}`}
             checked={selectedPackage === pkg.id}
             onChange={() => setSelectedPackage(pkg.id)}
-            className="absolute top-2 left-2 h-5 w-5  accent-blue-500 cursor-pointer"
+            className="absolute top-2 left-2 h-5 w-5 border border-white accent-purple  cursor-pointer"
           />
           {/* Package Details */}
           <label
