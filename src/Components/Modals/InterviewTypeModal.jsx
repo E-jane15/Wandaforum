@@ -31,17 +31,13 @@ const InterviewTypeModal = ({ close, setStep, step }) => {
 
   const dispatch = useDispatch();
   const handleNext = () => {
-    console.log("Next clicked");
     setStep(step + 1);
   };
 
-  const handleBack = () => {
-    console.log("Back clicked");
-  };
 
   const handleClick = (text) => {
     dispatch(selectItem({...selectedItem, type: text }));
-    console.log("Clicked Me!", text);
+    
   };
 
   return (
@@ -50,7 +46,6 @@ const InterviewTypeModal = ({ close, setStep, step }) => {
       items={modalItems}
       onClose={close}
       onNext={handleNext}
-      onBack={handleBack}
       showBackButton={false}
       renderItem={(item, index) => (
         <ModalItem
