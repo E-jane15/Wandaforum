@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../Components/Navbar/Navbar";
-import React from "react";
 import hero_image from "../../../assets/hero_image.png";
 import join_image from "../../../assets/join_image.png";
 import videocall_image from "../../../assets/videocall_image.png";
