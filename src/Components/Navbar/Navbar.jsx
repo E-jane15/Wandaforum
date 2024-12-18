@@ -58,7 +58,7 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink
-          to="/Questions"
+          to="/questionpage"
           className={({ isActive }) =>
             isActive
               ? "text-lg text-orange font-medium"
