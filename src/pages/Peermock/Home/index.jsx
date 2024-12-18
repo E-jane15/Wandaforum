@@ -20,6 +20,7 @@ import FinalModal from "../../../Components/Modals/FinalModal";
 import { useSelector, useDispatch } from "react-redux";
 import { cancelInterview } from "../../../redux/selectionSlice";
 
+
 function PeermockHome() {
   const workcards = [
     {
@@ -220,7 +221,7 @@ function PeermockHome() {
       {/* ---------------Third Section----------------*/}
       <div className="text-white px-20 mt-12">
         <p className=" text-3xl  font-bold text-center  ">
-          <span className="text-orange">Why </span>join
+          <span className="text-orange">Why</span>join
         </p>
         <div className="flex items-center justify-between">
           <div className="basis-3/5">
