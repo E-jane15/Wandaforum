@@ -1,24 +1,35 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomeScreen from "./pages/Home";
-import PeermockHome from "./pages/Peermock/Home";
-// import Community from "./pages/Community/Community";
-// import PostForum from "./pages/Questions/PostForum";
+import HomeScreen from "./pages/Home/Home";
+import PeermockHome from "./pages/Peermock/Home/index";
+import SignUp from "./pages/SignUp/SignUp"
+import Login from "./pages/Login/Login"
+import { UserProvider } from "./Context/UserContext";
+import Profile from "./pages/Profile/Profile";
+import Refer from "./pages/Refer/Refer";
+import Contact from "./pages/Contact/contact";
+import Pricing from "./pages/Pricing";
 import QuestionPage from "./pages/Questions/QuestionPage";
 import Community from './pages/Community/Community';
-import CommunityPage from "./Components/CommunityComponents/CommunityPage";
 
 const App = () => {
   return (
-    // <CommunityPage/>
-    <Routes>
-      <Route index element={<HomeScreen />} />
-      <Route path="/peermock" element={<PeermockHome />} />
-      <Route path="/questionpage/*" element={<QuestionPage/>}/>
-      <Route path = "/community/*" element = {<Community/>}/>
-      
-      
-    </Routes>
+    <UserProvider>
+      <Routes>
+        <Route index element={<HomeScreen />} />
+        <Route path="/peermock" element={<PeermockHome />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/questionpage/*" element={<QuestionPage/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/refer"   element={<Refer/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/pricing" element={<Pricing/>} />
+        <Route path = "/community/*" element = {<Community/>}/>
+      </Routes>
+        </UserProvider>
+          
+    
   );
 };
 
