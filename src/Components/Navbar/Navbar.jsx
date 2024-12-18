@@ -10,6 +10,9 @@ const Navbar = () => {
             <NavLink to="/" className={({isActive})=>
             isActive ? 'text-lg  text-orange font-medium':' text-lg hover:text-orange font-medium' }>
             Home</NavLink>
+            <NavLink to="/questionpage" className={({isActive})=>
+            isActive ? 'text-lg  text-orange font-medium':' text-lg hover:text-orange font-medium' }>
+            Questions</NavLink>
             <NavLink to="/community" className={({isActive})=>
             isActive ? 'text-lg  text-orange font-medium':' text-lg hover:text-orange font-medium' }>
             Community</NavLink>

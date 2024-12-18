@@ -1,24 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors:{
-        purple: '#7A24A1',
-        darkpurple: '#281b32',
-        orange: '#FEAA53',
-        purple2: '#C749E4',
-        purple3: '#332C3F',
-        gold: '#DFAf37'
+      colors: {
+        purple: "#7A24A1",
+        darkpurple: "#281b32",
+        orange: "#FEAA53",
+        purple2: "#C749E4",
+        purple3: "#332C3F",
+        gold: "#DFAf37",
       },
-      fontFamily:{
-        sans:['Montserrat', 'sans-serif'],
+      fontFamily: {
+        sans: ["Montserrat", "sans-serif"],
       },
     },
   },
-  
-  plugins: [],
-}
+
+  plugins: [ require("tailwind-scrollbar") ],
+};

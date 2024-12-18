@@ -1,18 +1,26 @@
-// QuestionForm.jsx
 "use client";
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function QuestionForm() {
+export default function QuestionForm({ onSubmit }) {
   const [isOpen, setIsOpen] = useState(false);
   const [question, setQuestion] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Question submitted:', question);
-    setQuestion('');
-    setIsOpen(false);
+    if (onSubmit && question.trim()) {
+      onSubmit({
+        content: question.trim(),
+        author: "Anonymous", // Replace with dynamic author if needed
+        username: "@anonymous", // Replace with dynamic username if needed
+        timestamp: new Date().toISOString(),
+        upvotes: 0,
+        comments: [],
+      });
+      setQuestion('');
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -108,68 +116,5 @@ export default function QuestionForm() {
   );
 }
 
-// "use client"
 
-// import { useState } from 'react'
-//import { motion } from 'framer-motion';
-
-// export default function QuestionForm() {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const [question, setQuestion] = useState('')
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault()
-//     // Handle question submission here
-//     console.log('Question submitted:', question)
-//     setQuestion('')
-//     setIsOpen(false)
-//   }
-
-//   return (
-//     <div className="w-full max-w-4xl mx-auto">
-//       {/* Ask Question Button */}
-//       <button
-//         onClick={() => setIsOpen(true)}
-//         className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors"
-//       >
-//         Ask Question
-//       </button>
-
-//       {/* Modal Overlay */}
-//       {isOpen && (
-//         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-//           {/* Modal Content */}
-//           <div className="bg-[#1a1625] rounded-lg w-full max-w-2xl p-6 shadow-xl">
-//             <h2 className="text-2xl font-semibold text-white mb-4">Ask a Question</h2>
-            
-//             <form onSubmit={handleSubmit}>
-//               <textarea
-//                 value={question}
-//                 onChange={(e) => setQuestion(e.target.value)}
-//                 placeholder="Type your question here..."
-//                 className="w-full h-32 p-3 rounded-md bg-[#2d2b3b] text-white placeholder-gray-400 border border-purple focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none resize-none mb-4 mt-4"
-//               />
-              
-//               <div className="flex justify-end gap-3">
-//                 <button
-//                   type="button"
-//                   onClick={() => setIsOpen(false)}
-//                   className="px-4 py-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white transition-colors"
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   type="submit"
-//                   className="px-4 py-2 rounded-md bg-purple hover:bg-purple-700 text-white transition-colors"
-//                 >
-//                   Post
-//                 </button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   )
-// }
 

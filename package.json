@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^11.12.0",
     "lucide": "^0.460.0",
     "lucide-react": "^0.460.0",
     "motion": "^11.11.17",
@@ -17,7 +20,10 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
-    "react-router-dom": "^6.28.0"
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^7.0.1",
+    "remark-gfm": "^4.0.0",
+    "tailwind-scrollbar": "^3.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
