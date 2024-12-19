@@ -3,6 +3,12 @@ import Navbar from '../../Components/Navbar/Navbar'
 import PricingCard from '../../Components/PricingCard'
 import BillingPlan from '../../Components/BillingPlan';
 import PaymentMethod from '../../Components/PaymentMethod';
+import bottom_icon from '../../assets/bottom_icon.png'
+import bottom_vector from '../../assets/bottom_vector.png'
+import FAQSection from '../../Components/FAQs/FAQs';
+import { AiOutlineFacebook, AiOutlineLinkedin } from 'react-icons/ai';
+import { FiTwitter } from 'react-icons/fi';
+import { FaInstagram } from 'react-icons/fa';
 
 const Pricing = () => {
 
@@ -72,8 +78,65 @@ const Pricing = () => {
          <div className='px-20 flex items-stretch gap-10'>
           <BillingPlan className="basis-2/5"/>
           <PaymentMethod className="basis-3/5" />
-         </div>
-         <p>Hello</p>
+         </div >
+         <FAQSection/>
+          {/* Footer */}
+                <footer
+                  className=" py-8 mt-24 bg-[right_100%]  bg-cover bg-no-repeat h-screen w-full"
+                  style={{ backgroundImage: `url(${bottom_vector})` }}
+                >
+                  <div className="max-w-6xl mx-auto px-6 text-center  ">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      {/* Icon */}
+                      <div className="bg-orange w-16 h-16 flex items-center justify-center rounded-full">
+                        <img
+                          src={bottom_icon} // Replace with the path to your purple icon
+                          alt="Logo Icon"
+                          className="w-6 h-8"
+                        />
+                      </div>
+                    </div>
+                    <h2 className="text-orange text-xl font-bold mt-8">
+                      Wanda<span className="font-light ">Forum</span>
+                    </h2>
+                    <div className="mt-4 flex justify-center space-x-6 text-white">
+                      <a href="#" className="hover:text-orange">
+                        Community
+                      </a>
+                      <a href="#" className="hover:text-orange">
+                        Questions
+                      </a>
+                      <a href="#" className="hover:text-orange">
+                        Peermocks
+                      </a>
+                      <a href="#" className="hover:text-orange">
+                        Pricing
+                      </a>
+                    </div>
+                    <div className="mt-8 flex justify-center space-x-4 text-orange">
+                      <a href="#" className="hover:text-white">
+                        <AiOutlineFacebook />
+                      </a>
+                      <a href="#" className="hover:text-white">
+                        <AiOutlineLinkedin />
+                      </a>
+                      <a href="#" className="hover:text-orange-400">
+                        <FiTwitter />
+                      </a>
+                      <a href="#" className="hover:text-orange-400">
+                        <FaInstagram />
+                      </a>
+                    </div>
+                    <p className="text-gray-500 mt-8 text-light">
+                      © 2024 Wandaprep<br></br> All Rights Reserved
+                    </p>
+                    <p className="text-orange mt-2 text-sm">
+                      <a href="#">Privacy Policy</a> |{" "}
+                      <a href="#">Terms and Conditions</a>
+                    </p>
+                  </div>
+                </footer>
+
          </div>
     </div>
   )
