@@ -6,7 +6,7 @@ const ModalStructure = ({ title, items, onClose, onNext, onBack, renderItem , im
 
     return(
   <div className="fixed w-screen h-screen backdrop-blur-md !py-10 top-0 left-0 z-50 text-white flex justify-center items-center">
-    <div className="bg-purple3 w-2/5 relative">
+    <div className="bg-purple3 w-2/5 relative rounded-lg">
     {showCloseIcon && (
       <FiX className="size-7 absolute right-4 top-3 cursor-pointer" onClick={onClose} />
     ) }
