@@ -3,7 +3,7 @@ import { BiChevronRight } from 'react-icons/bi'
 
 const PricingCard = ({title, heading, billing,amount,time,benefit1, benefit2}) => {
   return (
-    <div className='bg-darkpurple rounded-lg  w-72 pt-7 px-6 my-12 cursor-pointer hover:bg-gradient-to-b from-purple to-darkpurple '>
+    <div className='bg-darkpurple rounded-lg  w-72 pt-7 px-6 my-12 cursor-pointer hover:bg-gradient-to-b from-purple to-darkpurple'>
         <div className='text-center px-5'>
             <p className='text-orange text-sm mb-6 '>{title}</p>
             <p className='text-xl font-medium '>{heading}</p>

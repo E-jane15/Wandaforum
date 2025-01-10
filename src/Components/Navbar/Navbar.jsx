@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/wandaforum_icon.svg";
 import { NavLink, Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import { FaBars } from 'react-icons/fa'; 
 
 const Navbar = () => {
   const { user, logout } = useContext(UserContext); // Access user and logout from context
@@ -126,7 +127,7 @@ const Navbar = () => {
                   {user.name ? user.name[0].toUpperCase() : "U"}
                 </div>
               )}
-              <div className="absolute hidden group-hover:block bg-white text-black font-bold rounded-lg shadow-lg top-8  mt-2 w-48 z-[9999]  ">
+      <div className="absolute hidden group-hover:block bg-white text-black font-bold rounded-lg shadow-lg top-8  mt-2 w-48 z-[9999]  ">
                 <ul className="py-2">
                   <Link to="/profile">
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
@@ -163,6 +164,11 @@ const Navbar = () => {
               <button className="bg-purple py-3 px-7 rounded-full">
                 Signup
               </button>
+
+              {/* <Link to="/settings"></Link> */}
+           
+            {/* <FaBars onClick={() => window.location.href='/settings'} style={{ cursor: 'pointer' }} /> */}
+
             </NavLink>
           )}
         </div>

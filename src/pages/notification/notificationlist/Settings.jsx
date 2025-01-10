@@ -18,8 +18,6 @@ const Settings = () => {
   const HandleDeleteClick = () => {
     SetisMOdalOpen(true);
   };
-
-  // Fixed the syntax error in the closeModal function
   const closeModal = () => {
     SetisMOdalOpen(false);
   };
@@ -150,9 +148,9 @@ const Settings = () => {
 
         {/*==========  ======= Settings========== */}
         <div>
-          <h2 className="text-lg font-medium mb-4 font-semibold">Exponent Practice Settings</h2>
+          <h2 className="text-lg font-medium mb-4 font-semibold">Wandaprep Practice Settings</h2>
           <p className="text-white-700 mb-4">
-            Peer mock interviews on Exponent Practice may be recorded in order <br />
+            Peer mock interviews on Wandaprep Practice may be recorded in order <br />
             to automatically generate transcriptions and provide feedback for you.
           </p>
 
@@ -173,10 +171,10 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className=" mt-9 font-semibold text-white">Exponent Membership</div>
-        <p className="text-grey mt-4 text-grey text-white-700"> You aren't an Exponent Member yet. Your career depends on your next <br />
+        <div className=" mt-9 font-semibold text-white">Wandaprep Membership</div>
+        <p className="text-grey mt-4 text-grey text-white-700"> You aren't a Wandaprep Member yet. Your career depends on your next <br />
         interview. Want unlimited access to our courses and Slack Channel? Get <br />
-        Exponent's membership today.</p>
+        Wandaprep's membership today.</p>
 
         <div>
           <button className="bg-purple text-white py-2 px-4 rounded hover:bg-yellow-500 mt-6">Upgrade plan</button>
