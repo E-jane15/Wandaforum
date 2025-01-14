@@ -143,6 +143,11 @@ const Navbar = () => {
                     </li>
                   </Link>
 
+                  <Link to="/notification">
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <a href="/notification">Notifications</a>
+                    </li>
+                  </Link>
                   <Link to="/contact">
                     {" "}
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
