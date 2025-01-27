@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState,useEffect,useRef} from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import hero_image2 from "../../assets/hero_image2.png";
 import vectors from "../../assets/vectors.png";
@@ -14,6 +14,29 @@ import { FiTwitter } from "react-icons/fi";
 import bottom_icon from "../../assets/bottom_icon.png";
 import bottom_vector from "../../assets/bottom_vector.png";
 function HomeScreen() {
+   const [isVisible, setIsVisible] = useState(false);
+   const sectionRef = useRef(null);
+
+   useEffect(() => {
+     const observer = new IntersectionObserver(
+       ([entry]) => {
+         if (entry.isIntersecting) {
+           setIsVisible(true);
+         }
+       },
+       { threshold: 0.1 }
+     );
+
+     if (sectionRef.current) {
+       observer.observe(sectionRef.current);
+     }
+
+     return () => {
+       if (sectionRef.current) {
+         observer.unobserve(sectionRef.current);
+       }
+     };
+   }, []);
   return (
     <>
       <Navbar />
@@ -44,23 +67,41 @@ function HomeScreen() {
           Join over 50,000+ people using WandaForum
         </p>
       </div>
-      <section className="relative bg-gradient-to-tr from-purple3 to-purple4 mt-24  py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center  rounded-3xl shadow-lg p-8">
-        <div className="flex">
+      <section
+        ref={sectionRef}
+        className="relative bg-gradient-to-tr from-purple3 to-purple4 mt-24 py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center rounded-3xl shadow-lg"
+      >
+        {/* Image Section */}
+        <div
+          className={`w-full md:w-1/2 transition-transform duration-1000 ease-in-out ${
+            isVisible
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-40 opacity-0"
+          }`}
+        >
           <img
             src={community}
-            alt="Description"
-            class="w-1/3  rounded-lg shadow-lg w-50 md:w-1/2 flex justify-center items-start"
+            alt="Community"
+            className="w-full md:w-[90%] rounded-lg shadow-lg"
           />
-          <div className="ml-8 text-white  w-full md:w-1/2 md:mt-0  md:text-left justify-start">
-            <h2 className="text-5xl font-bold text-orange">Our Community</h2>
-            <p className="mt-12 text-4xl mt-4 leading-relaxed">
-              enables you to chat with friends , strangers about a lot of
-              interview questions to learn smoothly
-            </p>
-            <button className="mt-24 bg-purple px-6 py-3 rounded-full text-white hover:bg-purple3 text-2xl">
-              Start chat
-            </button>
-          </div>
+        </div>
+
+        {/* Text Section */}
+        <div
+          className={`text-white w-full md:w-1/2 md:mt-0 mt-8 md:text-left transition-transform duration-1000 ease-in-out ${
+            isVisible ? "translate-x-0 opacity-100" : "translate-x-40 opacity-0"
+          }`}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-orange">
+            Our Community
+          </h2>
+          <p className="mt-8 md:mt-4 text-lg md:text-2xl leading-relaxed">
+            Enables you to chat with friends and strangers about various
+            interview questions to learn smoothly.
+          </p>
+          <button className="mt-8 md:mt-12 bg-purple px-6 py-3 rounded-full text-white hover:bg-purple3 text-lg md:text-2xl">
+            Start Chat
+          </button>
         </div>
       </section>
       <Categories />
