@@ -53,7 +53,7 @@ function HomeScreen() {
           />
           <div className="ml-8 text-white  w-full md:w-1/2 md:mt-0  md:text-left justify-start">
             <h2 className="text-5xl font-bold text-orange">Our Community</h2>
-            <p className="mt-12 text-4xl mt-4 leading-relaxed">
+            <p className="mt-12 text-4xl leading-relaxed">
               enables you to chat with friends , strangers about a lot of
               interview questions to learn smoothly
             </p>
