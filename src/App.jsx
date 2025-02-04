@@ -10,6 +10,7 @@ import Profile from "./pages/Profile/Profile";
 import Refer from "./pages/Refer/Refer";
 import Contact from "./pages/Contact/contact";
 import Pricing from "./pages/Pricing";
+import QuestionPage from "./pages/QuestionPage/QuestionPage";
 
 
 import Community from './pages/Community/Community';
@@ -18,12 +19,18 @@ import Community from './pages/Community/Community';
 
 
 import Settings from "./pages/notification/notificationlist/Settings"
+import SavedQuestions from './pages/QuestionPage/SavedQuestions';
+import AskedQuestionsPage from './pages/QuestionPage/AskedQuestionsPage';
+import TrendingQuestionsPage from './pages/QuestionPage/TrendingQuestionsPage';
+import HelpCenterPage from './pages/QuestionPage/HelpCenterPage';
+import SettingsPage from './pages/QuestionPage/SettingsPage';
+import { QuestionProvider } from "./Components/Quest/QuestionProvider";
 
 
 const App = () => {
   return (
     <UserProvider>
-
+    <QuestionProvider>
       
       <Routes>
         <Route index element={<HomeScreen />} />
@@ -37,12 +44,12 @@ const App = () => {
         <Route path="/community/*" element={<Community />} />
         
         
-        {/* <Route path="/questionpage" element={<QuestionPage />} />
+        <Route path="/questionpage" element={<QuestionPage />} />
         <Route path="/saved" element={<SavedQuestions />} />
         <Route path="/asked-questions" element={<AskedQuestionsPage/>} />
         <Route path="/trending" element={<TrendingQuestionsPage />} />
         <Route path="/help-center" element={<HelpCenterPage />} />
-        <Route path="/settings" element={<SettingsPage />} /> */}
+        <Route path="/settings" element={<SettingsPage/>} />
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/refer" element={<Refer />} />
@@ -51,6 +58,7 @@ const App = () => {
         <Route path="/community/*" element={<Community />} />
         
       </Routes>
+      </QuestionProvider>
       
     </UserProvider>
   );
