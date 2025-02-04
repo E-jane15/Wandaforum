@@ -22,20 +22,14 @@ import AskedQuestionsPage from "./pages/QuestionPage/AskedQuestionsPage";
 import TrendingQuestionsPage from "./pages/QuestionPage/TrendingQuestionsPage";
 import HelpCenterPage from "./pages/QuestionPage/HelpCenterPage";
 
-// import SavedQuestionsPage from "./pages/QuestionPage/SavedQuestionPage";
-import SettingsPage from "./pages/QuestionPage/SettingsPage";
-import SavedQuestions from "./pages/QuestionPage/SavedQuestions";
-import { QuestionProvider } from "./Components/Quest/QuestionProvider";
-import AskedQuestionsPage from "./pages/QuestionPage/AskedQuestionsPage";
-import TrendingQuestionsPage from "./pages/QuestionPage/TrendingQuestionsPage";
-import HelpCenterPage from "./pages/QuestionPage/HelpCenterPage";
+
 
 import Settings from "./pages/notification/notificationlist/Settings"
 
 const App = () => {
   return (
     <UserProvider>
-      <QuestionProvider>
+     
       <QuestionProvider>
       <Routes>
         <Route index element={<HomeScreen />} />
@@ -61,23 +55,8 @@ const App = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/community/*" element={<Community />} />
         
-        {/* Question-related routes */}
-        <Route path="/questionpage" element={<QuestionPage />} />
-        <Route path="/saved" element={<SavedQuestions />} />
-        <Route path="/asked-questions" element={<AskedQuestionsPage/>} />
-        <Route path="/trending" element={<TrendingQuestionsPage />} />
-        <Route path="/help-center" element={<HelpCenterPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/questionpage/*" element={<QuestionPage/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/refer"   element={<Refer/>}/>
-        <Route path="/contact" element={<Contact/>}/>
-        <Route path="/pricing" element={<Pricing/>} />
-      <Route path="/notification" element={<Settings/>} />
-      <Route path = "/community/*" element = {<Community/>}/>
+        
       </Routes>
-      </QuestionProvider>
-    </UserProvider>
       </QuestionProvider>
     </UserProvider>
   );
