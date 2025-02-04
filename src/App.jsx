@@ -4,15 +4,21 @@ import HomeScreen from "./pages/Home/Home";
 import PeermockHome from "./pages/Peermock/Home/index";
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp";
-import Login from "./pages/Login/Login";
+<<<<<<< Updated upstream
+
+
+=======
+>>>>>>> Stashed changes
 import { UserProvider } from "./Context/UserContext";
 import Profile from "./pages/Profile/Profile";
 import Refer from "./pages/Refer/Refer";
 import Contact from "./pages/Contact/contact";
 import Pricing from "./pages/Pricing";
 import QuestionPage from "./pages/QuestionPage/QuestionPage";
-import QuestionPage from "./pages/QuestionPage/QuestionPage";
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 import Community from './pages/Community/Community';
 // import SavedQuestionsPage from "./pages/QuestionPage/SavedQuestionPage";
 import SettingsPage from "./pages/QuestionPage/SettingsPage";
@@ -22,14 +28,20 @@ import AskedQuestionsPage from "./pages/QuestionPage/AskedQuestionsPage";
 import TrendingQuestionsPage from "./pages/QuestionPage/TrendingQuestionsPage";
 import HelpCenterPage from "./pages/QuestionPage/HelpCenterPage";
 
+<<<<<<< Updated upstream
 
 
 import Settings from "./pages/notification/notificationlist/Settings"
+=======
+>>>>>>> Stashed changes
 
 const App = () => {
   return (
     <UserProvider>
+<<<<<<< Updated upstream
      
+=======
+>>>>>>> Stashed changes
       <QuestionProvider>
       <Routes>
         <Route index element={<HomeScreen />} />
@@ -49,6 +61,7 @@ const App = () => {
         <Route path="/trending" element={<TrendingQuestionsPage />} />
         <Route path="/help-center" element={<HelpCenterPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+<<<<<<< Updated upstream
         <Route path="/profile" element={<Profile />} />
         <Route path="/refer" element={<Refer />} />
         <Route path="/contact" element={<Contact />} />
@@ -56,11 +69,16 @@ const App = () => {
         <Route path="/community/*" element={<Community />} />
         
         
+=======
+>>>>>>> Stashed changes
       </Routes>
       </QuestionProvider>
     </UserProvider>
   );
 };
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 export default App;
