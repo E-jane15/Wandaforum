@@ -12,6 +12,8 @@ import Pricing from "./pages/Pricing";
 import QuestionPage from "./pages/Questions/QuestionPage";
 import Community from './pages/Community/Community';
 import Settings from "./pages/notification/notificationlist/Settings"
+import AvailabilityForm from "./Components/AvailabilityForm";
+import AvailabilityPage from "./Components/AvailabilityPage";
 
 const App = () => {
   return (
@@ -28,7 +30,9 @@ const App = () => {
         <Route path="/pricing" element={<Pricing/>} />
       <Route path="/notification" element={<Settings/>} />
       <Route path = "/community/*" element = {<Community/>}/>
-      </Routes>
+        <Route path="/availability-form" element={<AvailabilityForm/>} />
+      <Route path="/availability-page" element={<AvailabilityPage/>} />
+    </Routes>
         </UserProvider>
           
     
