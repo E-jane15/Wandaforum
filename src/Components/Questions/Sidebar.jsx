@@ -15,18 +15,21 @@ export default function Sidebar() {
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 14 }}
-      className="w-60 bg-[#1a1a2e] h-[calc(100vh-10rem)] rounded-2xl fixed left-4 top-25 overflow-hidden shadow-2xl"
+      className="w-60 bg-gradient-to-br from-purple-600/90 via-purple-500/80 to-orange-400/70 h-[calc(100vh-20rem)] rounded-2xl fixed left-4 top-40 overflow-hidden shadow-2xl backdrop-blur-sm"
     >
-      <div className="p-6">
+      <div className="p-6 relative">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-orange-300/10 backdrop-blur-sm"></div>
+        
         <motion.h1 
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-2xl font-bold text-white mb-8 text-center"
+          className="relative text-2xl font-bold bg-gradient-to-r from-white to-orange-100 bg-clip-text text-transparent mb-8 text-center"
         >
-          Community Dashboard
+          Question SideBar
         </motion.h1>
-        <nav>
+        <nav className="relative">
           <ul className="space-y-3">
             {[
               { 
@@ -56,7 +59,6 @@ export default function Sidebar() {
                 ),
                 label: "Saved Questions"
               },
-              
             ].map((item, index) => (
               <motion.li
                 key={item.to}
@@ -68,13 +70,13 @@ export default function Sidebar() {
                   to={item.to}
                   className={`flex items-center space-x-3 rounded-lg p-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ${
                     activeLink === item.to
-                      ? 'text-white bg-purple'
-                      : 'text-gray-300 hover:text-white hover:bg-purple hover:opacity-80'
+                      ? 'bg-white/10 text-white shadow-lg backdrop-blur-sm'
+                      : 'text-gray-200 hover:text-white hover:bg-white/5'
                   }`}
                   onClick={() => handleLinkClick(item.to)}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span className="font-medium">{item.label}</span>
                 </Link>
               </motion.li>
             ))}
@@ -84,12 +86,3 @@ export default function Sidebar() {
     </motion.aside>
   );
 }
-
-
-
-
-
-
-
-
-

@@ -62,10 +62,10 @@ export default function QuestionForm({ onSubmit }) {
               className="bg-[#1a1625] rounded-xl w-full max-w-2xl shadow-2xl border border-purple/20"
             >
               <div className="p-6 border-b border-purple/20">
-                <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent">
                   Ask a Question
                 </h2>
-                <p className="text-gray-400 mt-2">
+                <p className="text-gray-200 mt-2">
                   Share your question with the community. Be specific and provide context.
                 </p>
               </div>
@@ -76,7 +76,7 @@ export default function QuestionForm({ onSubmit }) {
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="Type your question here..."
-                    className="w-full h-40 p-4 rounded-lg bg-[#2d2b3b] text-white placeholder-gray-400 border border-purple/30 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none resize-none transition-all duration-300"
+                    className="w-full h-40 p-4 rounded-lg bg-[#2d2b3b] text-white placeholder-gray-400 border border-purple/30 focus:border-purple focus:ring-2 focus:ring-purple focus:outline-none resize-none transition-all duration-300"
                   />
                   <div className="absolute bottom-3 right-3 text-sm text-gray-400">
                     {question.length} / 1000
