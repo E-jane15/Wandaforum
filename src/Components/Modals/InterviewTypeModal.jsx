@@ -11,7 +11,8 @@ import kubernetes_logo from "../../assets/kubernetes.png";
 import linux_logo from "../../assets/linux.png";
 import python_logo from "../../assets/python.png";
 import terraform_logo from "../../assets/terraform.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectItem } from "../../redux/selectionSlice";
 
 const InterviewTypeModal = ({ close, setStep, step }) => {

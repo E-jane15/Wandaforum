@@ -1,7 +1,8 @@
 import React from "react";
 import ModalStructure from "../../Components/Modals/ModalStructure";
 import ModalItem2 from "../../Components/ModalItem2";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectItem } from "../../redux/selectionSlice";
 import { PiUserPlusBold, PiUsersThreeBold } from "react-icons/pi";
 

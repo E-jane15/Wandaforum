@@ -7,39 +7,42 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../api"; // ✅ Import login function
+
 const Login = () => {
   const { setUser } = useContext(UserContext); // Access setUser from UserContext
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); // For redirection
+   const [error, setError] = useState("");
+   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
 
-    // Retrieve the single user from local storage
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError("");
 
-    if (!savedUser) {
-      alert("No registered user found. Please sign up first.");
-      return;
-    }
+  try {
+    console.log("Logging in with:", { email, password }); // ✅ Debugging
 
-    // Check if the email and password match
-    if (
-      savedUser &&
-      savedUser.email === email &&
-      savedUser.password === password
-    ) {
-      // Set user in context
-      setUser(savedUser);
+    const response = await loginUser({ email, password });
 
-      // Redirect to the homepage
-      navigate("/");
-    } else {
-      alert("User not fount or incorrect email.Please register");
-    }
-  };
+    console.log("Login successful:", response); // ✅ Log response
+
+    setUser({ email });
+
+    navigate("/Dashboard");
+  } catch (err) {
+    console.error("Login failed:", err); // ✅ Log error
+    setError(err.message || "Invalid login credentials");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   return (
     <>
       <div
@@ -125,9 +128,9 @@ const Login = () => {
               <h2 className="text-5xl font-bold  text-center bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent">
                 SignIn to your Account
               </h2>
-              <p className="text-white text-sm mb-6 text-center">
-                Login to your account
-              </p>
+
+              
+              {error && <p className="error">{error}</p>}
 
               {/* Form */}
               <form className="space-y-6 " onSubmit={handleLogin}>
@@ -214,23 +217,23 @@ const Login = () => {
                 <button
                   type="submit"
                   className="w-full bg-purple text-white rounded-full py-4 hover:bg-purple-700 transition"
+                  disabled={loading}
                 >
-                  Sign Up
+                  {loading ? "Logging in..." : "Login"}
                 </button>
-                {/* Checkbox */}
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="accept"
-                    className="w-4 h-4 text-purple-400 bg-gray-700 border-none rounded focus:ring-purple-400"
-                  />
-                  <label htmlFor="accept" className="ml-2 text-white text-sm">
-                    I accept the Wandaprep
-                  </label>
-                </div>
 
                 {/* Signup Button */}
               </form>
+              <div>
+                {" "}
+                <p className="text-white text-sm mt-4 text-center">
+                  Forgot password?{" "}
+                  <span password className="text-orange hover:underline">
+                    {" "}
+                    reset password
+                  </span>
+                </p>
+              </div>
 
               {/* Divider */}
               <div className="flex flex-col items-center justify-center my-4 mt-8">

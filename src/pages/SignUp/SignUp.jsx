@@ -6,6 +6,8 @@ import Facebook_logo from "../../assets/Facebook-logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+import { registerUser } from "../../api";
+
 import profilepicture from "../../assets/kelly.jpg";
 const SignUp = () => {
   const { setUser } = useContext(UserContext); // Access setUser from UserContext
@@ -20,42 +22,45 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
+  const [error, setError] = useState(""); // Store error messages
+  const [loading, setLoading] = useState(false); // Loading state
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
+    try {
+      const userData = {
+        userName: formData.username,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      };
+
+      console.log("Sending signup request with:", userData); // Debugging
+
+      const response = await registerUser(userData);
+
+      console.log("Signup successful:", response);
+
+      // Set user and redirect
+      setUser({ email: userData.email, username: userData.userName });
+      navigate("/Dashboard");
+    } catch (err) {
+      console.error("Signup failed:", err); // Debugging
+      setError(err.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
-    const firstLetter = formData.username.charAt(0).toUpperCase();
-
-    // Define mockUser with the necessary properties
-    const mockUser = {
-      name: formData.username,
-      email: formData.email,
-      password: formData.password,
-      profilePicture: null,
-      initial: firstLetter,
-    };
-
-    // Save mockUser to localStorage
-    localStorage.setItem("user", JSON.stringify(mockUser));
-
-    // Optional: Log for debugging
-    console.log("MockUser to Save:", mockUser);
-
-    // Set the user in the context
-    setUser(mockUser);
-
-    // Redirect to the homepage
-    navigate("/");
   };
+
+
   return (
     <>
       <div
@@ -144,7 +149,7 @@ const SignUp = () => {
               <p className="text-white text-sm mb-6 text-center">
                 Please create your account to continue
               </p>
-
+              {error && <p className="error">{error}</p>}
               {/* Form */}
               <form className="space-y-6 " onSubmit={handleSignup}>
                 {/* Username */}
@@ -250,7 +255,7 @@ const SignUp = () => {
                 <div>
                   <label
                     htmlFor="confirmPassword"
-                    className="block text-white text-sm mb-1"
+                    className="block text-orange text-sm mb-1"
                   >
                     Confirm Password
                   </label>
@@ -313,8 +318,9 @@ const SignUp = () => {
                 <button
                   type="submit"
                   className="w-full bg-purple text-white rounded-full py-4 hover:bg-purple-700 transition"
+                  disabled={loading}
                 >
-                  Sign Up
+                  {loading ? "Signing up..." : "Sign Up"}
                 </button>
                 {/* Checkbox */}
                 <div className="flex items-center">

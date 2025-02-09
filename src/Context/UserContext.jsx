@@ -1,31 +1,26 @@
 import React, { createContext, useState, useEffect } from "react";
+import { getProfile } from "../api";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    // Load user from localStorage initially
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  const [user, setUser] = useState(null);
 
-
-  // Load user from localStorage on app load
   useEffect(() => {
-    // Update localStorage whenever the user changes
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  }, [user]);
+    const fetchUser = async () => {
+      try {
+        const userData = await getProfile();
+        setUser(userData); // ✅ Store user in context
+      } catch (error) {
+        console.error("User fetching failed:", error);
+      }
+    };
 
-  // Logout function
-  const logout = () => {
-    
-    setUser(null); // Reset user in context
-  };
+    fetchUser();
+  }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );
