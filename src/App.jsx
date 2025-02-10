@@ -41,7 +41,7 @@ const App = () => {
         <Route path="/refer" element={<Refer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/community/*" element={<Community />} />
+        <Route path="/community" element={<Community />} />
         
         
         <Route path="/questionpage" element={<QuestionPage />} />
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/refer" element={<Refer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/community/*" element={<Community />} />
+        {/* <Route path="/community/*" element={<Community />} /> */}
         
       </Routes>
       </QuestionProvider>
