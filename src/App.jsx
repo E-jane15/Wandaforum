@@ -19,24 +19,25 @@ import Community from './pages/Community/Community';
 
 
 import Settings from "./pages/notification/notificationlist/Settings"
-import SavedQuestions from './pages/QuestionPage/SavedQuestions';
-import AskedQuestionsPage from './pages/QuestionPage/AskedQuestionsPage';
-import TrendingQuestionsPage from './pages/QuestionPage/TrendingQuestionsPage';
-import HelpCenterPage from './pages/QuestionPage/HelpCenterPage';
-import SettingsPage from './pages/QuestionPage/SettingsPage';
-import { QuestionProvider } from "./Components/Quest/QuestionProvider";
-
+import Landing from "./pages/Landing/Landing"
+import Dashboard from "./pages/Dashboard/Dashboard";
+import ProfileCard from "./pages/ProfileCard/ProfileCard";
+import { QuestionProvider } from './Components/Quest/QuestionProvider';
 
 const App = () => {
   return (
     <UserProvider>
     <QuestionProvider>
-      
       <Routes>
-        <Route index element={<HomeScreen />} />
+        <Route  index element={<Landing/>} />
+        <Route path="/Home" element={<HomeScreen/>}/>
         <Route path="/peermock" element={<PeermockHome />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+      <Route path="/notification" element={<Settings/>} />
+     
+      <Route path="/Dashboard" element= {<Dashboard/>}/>
+      <Route path="/profilecard" element={<ProfileCard/>} />   
         <Route path="/profile" element={<Profile />} />
         <Route path="/refer" element={<Refer />} />
         <Route path="/contact" element={<Contact />} />
@@ -59,8 +60,9 @@ const App = () => {
         
       </Routes>
       </QuestionProvider>
-      
-    </UserProvider>
+      </UserProvider>
+          
+    
   );
 };
 

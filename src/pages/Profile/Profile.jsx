@@ -1,49 +1,67 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../Context/UserContext";
 import Navbar from "../../Components/Navbar/Navbar";
 import { FaCameraRetro } from "react-icons/fa6";
 import activity from "../../assets/Profile .png";
+import { getProfile, updateProfile } from "../../api"; // ✅ Import API functions
+
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const [uploadedImage, setUploadedImage] = useState(
-    user.profilePicture || null
+    user?.profilePicture || null
   );
   const [activeTab, setActiveTab] = useState("Activity");
-  const [isEditing, setIsEditing] = useState(false); // State to control the modal
+  const [isEditing, setIsEditing] = useState(false);
+
+  // ✅ Fetch profile from backend on mount
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfile = await getProfile();
+        setUser(userProfile);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    if (!user) {
+      fetchUserProfile();
+    }
+  }, [setUser]);
+
+  // ✅ Ensure form data starts with correct user values
   const [formData, setFormData] = useState({
-    username:user.name,
-    bio: "",
-    profilePicture: null,
+    userName: user?.userName || "",
+    bio: user?.bio || "",
+    profilePicture: uploadedImage || null,
   });
-  const handleEditClick = () => {
-    setIsEditing(true); // Show the edit modal
-  };
+
+  // ✅ Update form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSaveChanges = () => {
-    // Update UserContext with new data
-   const updatedUser = {
-     ...user,
-     name: formData.username || user.name, // Fallback to current name if empty
-     bio: formData.bio || user.bio, // Fallback to current bio if empty
-   };
-    // Update the UserContext
-    setUser(updatedUser);
+  // ✅ Save Profile Changes
+  const handleSaveChanges = async () => {
+    try {
+      const updatedUser = {
+        ...user,
+        userName: formData.userName || user.userName, // Ensure fallback
+        bio: formData.bio || user.bio,
+        profilePicture: uploadedImage,
+      };
 
-    // Save the updated user to localStorage
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-
-    setIsEditing(false); // Hide the edit modal
+      // ✅ Send updated data to backend
+      const response = await updateProfile(updatedUser);
+      setUser(response);
+      setIsEditing(false); // Hide modal
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
-  const handleCancel = () => {
-    setIsEditing(false);
-    formData.bio = null; // Hide the edit modal without saving
-  };
-
+  // ✅ Handle Image Upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -51,7 +69,10 @@ const Profile = () => {
       reader.onload = () => {
         const image = reader.result;
         setUploadedImage(image);
-        setUser((prevUser) => ({ ...prevUser, profilePicture: image }));
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          profilePicture: image,
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -60,8 +81,6 @@ const Profile = () => {
   if (!user) {
     return <p className="text-center text-white">User not found</p>;
   }
-
-  const { name, bio } = user;
 
   return (
     <>
@@ -79,7 +98,7 @@ const Profile = () => {
                   className="object-cover w-full h-full"
                 />
               ) : (
-                name[0].toUpperCase()
+                user?.userName?.charAt(0).toUpperCase() || "U"
               )}
             </div>
 
@@ -88,7 +107,7 @@ const Profile = () => {
               htmlFor="profile-upload"
               className="absolute bottom-0 right-0 bg-purple3 rounded-full p-2 cursor-pointer"
             >
-              <FaCameraRetro onChange={handleImageUpload} />
+              <FaCameraRetro />
             </label>
             <input
               type="file"
@@ -102,13 +121,13 @@ const Profile = () => {
           {/* User Info */}
           <div className="flex flex-col space-y-4">
             <div className="flex space-x-4">
-              <h1 className="mt-4 text-3xl font-bold  bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent">
-              {user.name}
+              <h1 className="mt-4 text-3xl font-bold bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent">
+                {user.userName}
               </h1>
             </div>
             <textarea
               placeholder="Bio"
-              value={formData.bio || "Bio"}
+              value={formData.bio || "No bio yet"}
               className="bg-transparent border border-gray-400 rounded-md px-4 py-2 text-lg"
               readOnly
             />
@@ -116,11 +135,13 @@ const Profile = () => {
 
           <button
             className="bg-purple px-6 py-3 rounded-full"
-            onClick={handleEditClick}
+            onClick={() => setIsEditing(true)}
           >
             Edit Profile
           </button>
         </div>
+
+        {/* Edit Profile Modal */}
         {isEditing && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 text-white">
             <div className="bg-darkpurple p-8 rounded-lg w-96 shadow-lg">
@@ -129,8 +150,8 @@ const Profile = () => {
                 <label className="block text-orange">User Name</label>
                 <input
                   type="text"
-                  name="username"
-                  value={formData.username }
+                  name="userName"
+                  value={formData.userName}
                   onChange={handleInputChange}
                   className="w-full border border-gray-300 bg-darkpurple p-2 rounded-3xl"
                 />
@@ -148,7 +169,7 @@ const Profile = () => {
               <div className="flex justify-end space-x-4">
                 <button
                   className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
-                  onClick={handleCancel}
+                  onClick={() => setIsEditing(false)}
                 >
                   Cancel
                 </button>
@@ -164,7 +185,7 @@ const Profile = () => {
         )}
 
         {/* Tabs Section */}
-        <div className="mt-10  pt-6">
+        <div className="mt-10 pt-6">
           <div className="flex space-x-10 text-lg">
             <button
               className={`${
@@ -177,7 +198,6 @@ const Profile = () => {
               Activity
             </button>
 
-            {/* Saved Tab */}
             <button
               className={`${
                 activeTab === "Saved"
@@ -189,7 +209,6 @@ const Profile = () => {
               Saved
             </button>
 
-            {/* Settings Tab */}
             <button
               className={`${
                 activeTab === "Settings"
@@ -206,14 +225,11 @@ const Profile = () => {
           {/* Activity Content */}
           <div className="mt-12 text-center">
             <div className="relative w-60 h-60 mx-auto">
-              {/* Image with increased size */}
               <img
-                src={activity} // Your activity image path
+                src={activity}
                 alt="No Activity"
                 className="w-full h-full object-cover rounded-lg"
               />
-
-              {/* Text on top of the image */}
               <p className="absolute inset-0 flex items-center justify-center text-lg font-bold text-orange rounded-lg">
                 No activity yet
               </p>

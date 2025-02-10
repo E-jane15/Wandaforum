@@ -17,7 +17,8 @@ import PeerTypeModal from "../../../Components/Modals/PeerTypeModal";
 import PracticeLevelModal from "../../../Components/Modals/PracticeLevelModal";
 import TimeModal from "../../../Components/Modals/TimeModal";
 import FinalModal from "../../../Components/Modals/FinalModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { cancelInterview } from "../../../redux/selectionSlice";
 
 
