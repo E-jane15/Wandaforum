@@ -47,11 +47,7 @@ const App = () => {
         
         
         <Route path="/questionpage" element={<QuestionPage />} />
-        <Route path="/saved" element={<SavedQuestions />} />
-        <Route path="/asked-questions" element={<AskedQuestionsPage/>} />
-        <Route path="/trending" element={<TrendingQuestionsPage />} />
-        <Route path="/help-center" element={<HelpCenterPage />} />
-        <Route path="/settings" element={<SettingsPage/>} />
+        <Route path="/settings" element={<Settings/>} />
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/refer" element={<Refer />} />
