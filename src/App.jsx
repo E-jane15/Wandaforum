@@ -23,6 +23,8 @@ import Landing from "./pages/Landing/Landing"
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProfileCard from "./pages/ProfileCard/ProfileCard";
 import { QuestionProvider } from './Components/Quest/QuestionProvider';
+import AvailabilityForm from "./Components/AvailabilityForm";
+import AvailabilityPage from "./Components/AvailabilityPage";
 
 const App = () => {
   return (
@@ -35,7 +37,6 @@ const App = () => {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       <Route path="/notification" element={<Settings/>} />
-     
       <Route path="/Dashboard" element= {<Dashboard/>}/>
       <Route path="/profilecard" element={<ProfileCard/>} />   
         <Route path="/profile" element={<Profile />} />
@@ -57,10 +58,13 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Pricing />} />
         {/* <Route path="/community/*" element={<Community />} /> */}
-        
+        <Route path="/availability-form" element={<AvailabilityForm/>} />
+      <Route path="/availability-page" element={<AvailabilityPage/>} />
       </Routes>
       </QuestionProvider>
       </UserProvider>
+    
+        
           
     
   );
