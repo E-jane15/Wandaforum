@@ -21,7 +21,10 @@ import {
 } from 'lucide-react';
 
 // Confirmation Component
-const DomainConfirmation = ({ selectedDomains, onClose }) => {
+const DomainConfirmation = ({ selectedDomains, onClose, onSubmit }) => {
+  const handleContinue = () => {
+    onSubmit(); // Trigger the onSubmit function passed from the parent
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-purple3 rounded-2xl p-10 max-w-xl w-full text-center relative shadow-2xl border border-purple/20 transform transition-all duration-300 ease-in-out scale-100 opacity-100">
@@ -53,7 +56,7 @@ const DomainConfirmation = ({ selectedDomains, onClose }) => {
         </div>
         <div className="flex justify-center space-x-4">
           <button 
-            onClick={onClose}
+            onClick={handleContinue}
             className="bg-gradient-to-r from-purple to-orange text-white 
               font-bold py-3 px-8 rounded-xl transition duration-300 
               ease-in-out transform hover:scale-105 
@@ -160,8 +163,8 @@ const DomainModal = ({ isOpen, onClose, onSubmit }) => {
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      setSelectedDomains([]); 
-      setShowConfirmation(false);
+      setSelectedDomains([]); // Reset selected domains when the modal opens
+      setShowConfirmation(false); // Reset confirmation state
     } else {
       const timer = setTimeout(() => {
         setIsVisible(false);
@@ -171,11 +174,10 @@ const DomainModal = ({ isOpen, onClose, onSubmit }) => {
   }, [isOpen]);
 
   const handleDomainSelect = (domain) => {
-    setSelectedDomains(prev => {
-      const isDomainAlreadySelected = prev.some(d => d.name === domain.name);
-      
+    setSelectedDomains((prev) => {
+      const isDomainAlreadySelected = prev.some((d) => d.name === domain.name);
       if (isDomainAlreadySelected) {
-        return prev.filter(d => d.name !== domain.name);
+        return prev.filter((d) => d.name !== domain.name);
       } else {
         return [...prev, domain];
       }
@@ -184,73 +186,68 @@ const DomainModal = ({ isOpen, onClose, onSubmit }) => {
 
   const handleGetStarted = () => {
     if (selectedDomains.length > 0) {
-      onSubmit(selectedDomains);
-      setShowConfirmation(true);
+      setShowConfirmation(true); // Show the confirmation modal
     } else {
-      alert('Please select at least one tech domain');
+      alert("Please select at least one tech domain");
     }
   };
 
-  const handleModalContentClick = (e) => {
-    e.stopPropagation();
+  const handleConfirmationClose = () => {
+    setShowConfirmation(false); // Hide the confirmation modal
+    onClose(); // Close the domain modal
   };
 
-  const handleConfirmationClose = () => {
-    setShowConfirmation(false);
-    onClose();
+  const handleConfirmationSubmit = () => {
+    onSubmit(selectedDomains); // Pass selected domains to the parent component
+    setShowConfirmation(false); // Hide the confirmation modal
+    onClose(); // Close the domain modal
   };
 
   if (!isVisible) return null;
 
   // If confirmation is showing, render the confirmation component
   if (showConfirmation) {
-    return <DomainConfirmation 
-      selectedDomains={selectedDomains} 
-      onClose={handleConfirmationClose} 
-    />;
+    return (
+      <DomainConfirmation
+        selectedDomains={selectedDomains}
+        onClose={handleConfirmationClose}
+        onSubmit={handleConfirmationSubmit}
+      />
+    );
   }
 
   return (
-    <div 
+    <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
-        isOpen 
-          ? 'opacity-100' 
-          : 'opacity-0 pointer-events-none'
+        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       onClick={onClose}
     >
-      <div 
+      <div
         className={`bg-purple3 text-white max-h-[95vh] my-auto overflow-y-auto scrollbar-none rounded-2xl shadow-2xl w-full max-w-4xl p-8 transform transition-all duration-300 ${
-          isOpen 
-            ? 'scale-100 opacity-100' 
-            : 'scale-95 opacity-0'
+          isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
         }`}
-        onClick={handleModalContentClick}
+        onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent">
           Choose Your Tech Domains
         </h2>
         <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
-          Select multiple tech communities that align with your interests and expertise. 
-          You can choose more than one domain to explore.
+          Select multiple tech communities that align with your interests and expertise. You can choose more than one
+          domain to explore.
         </p>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {techDomains.map((domain) => {
-            const isSelected = selectedDomains.some(d => d.name === domain.name);
-            
+            const isSelected = selectedDomains.some((d) => d.name === domain.name);
             return (
               <button
                 key={domain.name}
-                className={`
-                  flex flex-col items-center justify-center 
-                  p-4 rounded-lg border-2 transition-all duration-300 ease-in-out
-                  relative overflow-hidden group
-                  ${isSelected
-                    ? 'bg-gradient-to-r from-purple to-orange border-transparent ring-4 ring-purple/50 scale-105' 
-                    : 'border-purple/30 hover:border-purple/50 bg-purple/10 hover:bg-purple/20'
-                  }
-                `}
+                className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-300 ease-in-out relative overflow-hidden group ${
+                  isSelected
+                    ? "bg-gradient-to-r from-purple to-orange border-transparent ring-4 ring-purple/50 scale-105"
+                    : "border-purple/30 hover:border-purple/50 bg-purple/10 hover:bg-purple/20"
+                }`}
                 onClick={() => handleDomainSelect(domain)}
               >
                 {isSelected && (
@@ -259,30 +256,23 @@ const DomainModal = ({ isOpen, onClose, onSubmit }) => {
                   </div>
                 )}
 
-                <domain.icon 
-                  className={`w-8 h-8 mb-2 transition-all duration-300
-                    ${isSelected
-                      ? 'text-white scale-110' 
-                      : 'text-purple group-hover:text-purple-400'
-                    }
-                  `} 
+                <domain.icon
+                  className={`w-8 h-8 mb-2 transition-all duration-300 ${
+                    isSelected ? "text-white scale-110" : "text-purple group-hover:text-purple-400"
+                  }`}
                 />
-                <span className={`
-                  font-semibold text-sm mb-1 transition-all duration-300
-                  ${isSelected
-                    ? 'text-white' 
-                    : 'text-white/80 group-hover:text-white'
-                  }
-                `}>
+                <span
+                  className={`font-semibold text-sm mb-1 transition-all duration-300 ${
+                    isSelected ? "text-white" : "text-white/80 group-hover:text-white"
+                  }`}
+                >
                   {domain.name}
                 </span>
-                <p className={`
-                  text-xs text-center opacity-70 transition-all duration-300
-                  ${isSelected
-                    ? 'text-white/80' 
-                    : 'text-gray-400 group-hover:text-white/70'
-                  }
-                `}>
+                <p
+                  className={`text-xs text-center opacity-70 transition-all duration-300 ${
+                    isSelected ? "text-white/80" : "text-gray-400 group-hover:text-white/70"
+                  }`}
+                >
                   {domain.description}
                 </p>
               </button>
@@ -291,20 +281,18 @@ const DomainModal = ({ isOpen, onClose, onSubmit }) => {
         </div>
 
         <div className="flex justify-center">
-          <button 
+          <button
             onClick={handleGetStarted}
             disabled={selectedDomains.length === 0}
-            className={`
-              w-full max-w-md py-3 rounded-lg text-white font-bold transition-all
-              ${selectedDomains.length > 0
-                ? 'bg-gradient-to-r from-purple to-orange hover:from-purple/90 hover:to-orange/90 cursor-pointer' 
-                : 'bg-gray-600 cursor-not-allowed'
-              }
-            `}
+            className={`w-full max-w-md py-3 rounded-lg text-white font-bold transition-all ${
+              selectedDomains.length > 0
+                ? "bg-gradient-to-r from-purple to-orange hover:from-purple/90 hover:to-orange/90 cursor-pointer"
+                : "bg-gray-600 cursor-not-allowed"
+            }`}
           >
             {selectedDomains.length > 0
-              ? `Get Started (${selectedDomains.length} Domain${selectedDomains.length > 1 ? 's' : ''} Selected)` 
-              : 'Select Domains'}
+              ? `Get Started (${selectedDomains.length} Domain${selectedDomains.length > 1 ? "s" : ""} Selected)`
+              : "Select Domains"}
           </button>
         </div>
       </div>
