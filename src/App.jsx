@@ -25,6 +25,13 @@ import ProfileCard from "./pages/ProfileCard/ProfileCard";
 import { QuestionProvider } from './Components/Quest/QuestionProvider';
 import AvailabilityForm from "./Components/AvailabilityForm";
 import AvailabilityPage from "./Components/AvailabilityPage";
+import SavedQuestions from './pages/QuestionPage/SavedQuestions';
+import AskedQuestionsPage from './pages/QuestionPage/AskedQuestionsPage';
+import HelpCenterPage from './pages/QuestionPage/HelpCenterPage';
+import SettingsPage from './pages/QuestionPage/SettingsPage';
+import TrendingQuestionsPage from './pages/QuestionPage/TrendingQuestionsPage';
+import UserProfile from "./pages/Community/UserProfile";
+import WelcomeSection from "./Components/CommunityComponents/Welcome";
 
 const App = () => {
   return (
@@ -53,9 +60,11 @@ const App = () => {
         <Route path="/refer" element={<Refer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/welcome" element={<WelcomeSection/>}/>
         {/* <Route path="/community/*" element={<Community />} /> */}
         <Route path="/availability-form" element={<AvailabilityForm/>} />
       <Route path="/availability-page" element={<AvailabilityPage/>} />
+        <Route path="/user/:userId" element={<UserProfile />} />
       </Routes>
       </QuestionProvider>
       </UserProvider>

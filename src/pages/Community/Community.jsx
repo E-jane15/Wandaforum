@@ -32,18 +32,41 @@
 //   return <WelcomeSection/>
 // }
 
-import { useState } from "react";
-import WelcomeSection from "../../Components/CommunityComponents/Welcome"
-import CommunityPage from "../../Components/CommunityComponents/CommunityPage";
+"use client";
 
+import { useState, useEffect } from "react";
+import WelcomeSection from "../../Components/CommunityComponents/Welcome";
+import CommunityPage from "../../Components/CommunityComponents/CommunityPage";
 
 export default function Community() {
   const [selectedDomains, setSelectedDomains] = useState([]);
 
-  // If domains are selected, show the CommunityPage; otherwise, show the WelcomeSection
+  // Load domains from localStorage on component mount
+  useEffect(() => {
+    const storedDomains = localStorage.getItem("selectedDomains");
+    if (storedDomains) {
+      setSelectedDomains(JSON.parse(storedDomains));
+    }
+  }, []);
+
+  // Handler for when domains are selected
+  const handleDomainsSelected = (domains) => {
+    setSelectedDomains(domains);
+    localStorage.setItem("selectedDomains", JSON.stringify(domains));
+  };
+
+  // Handler for logging out or clearing domains
+  const handleClearDomains = () => {
+    setSelectedDomains([]);
+    localStorage.removeItem("selectedDomains");
+  };
+
   return selectedDomains.length > 0 ? (
-    <CommunityPage selectedDomains={selectedDomains} />
+    <CommunityPage 
+      selectedDomains={selectedDomains} 
+      onLogout={handleClearDomains}  // Pass this to your CommunityPage if you want a logout option
+    />
   ) : (
-    <WelcomeSection onGetStarted={(domains) => setSelectedDomains(domains)} />
+    <WelcomeSection onGetStarted={handleDomainsSelected} />
   );
 }
