@@ -33,7 +33,7 @@ const PeerTypeModal = ({ close, step, setStep }) => {
   };
 
   const handleClick = (heading) => {
-    dispatch(selectItem({...selectedItem, peer: heading }));
+    dispatch(selectItem({ peerType: heading })); // Update only the interviewType in the selections
   };
 
   return (

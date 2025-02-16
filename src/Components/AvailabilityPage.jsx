@@ -1,103 +1,52 @@
-// src/pages/AvailabilityPage.jsx
-import React, { useEffect, useState } from 'react';
-import AvailabilityCard from '../Components/AvailabilityCard'
-import number1 from '../assets/number_one.svg'
-import pic from '../assets/pic.jpg'
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../Context/UserContext';
+import AvailabilityCard from '../Components/AvailabilityCard';
 import { CgChevronLeft } from 'react-icons/cg';
+import axios from 'axios';
 
 const AvailabilityPage = () => {
+  const { user } = useContext(UserContext); // Get user from context
   const [availabilities, setAvailabilities] = useState([]);
-  const availabilityCards =[
-    {
-      id:1,
-      userName:'Ebai Jane',
-      profile: pic,
-      bio: 'Full Stack Developer',
-      role: 'Interviewee',
-      startTime: '09:00',
-      endTime: '17:00',
-      status: 'Available',
-      focusArea: 'Amazon Web Services'
-    },
-    {
-      id:2,
-      userName:'Ebai Jane',
-      profile: pic,
-      bio: 'Full Stack Developer',
-      role: 'Interviewee',
-      startTime: '09:00',
-      endTime: '17:00',
-      status: 'Available',
-      focusArea: 'Amazon Web Services'
-    },
-    {
-      id:3,
-      userName:'Ebai Jane',
-      profile: pic,
-      bio: 'Full Stack Developer',
-      role: 'Interviewee',
-      startTime: '09:00',
-      endTime: '17:00',
-      status: 'Available',
-      focusArea: 'Amazon Web Services'
-    },
-    {
-      id:4,
-      userName:'Ebai Jane',
-      profile: pic,
-      bio: 'Full Stack Developer',
-      role: 'Interviewee',
-      startTime: '09:00',
-      endTime: '17:00',
-      status: 'Available',
-      focusArea: 'Amazon Web Services'
-    },
-    {
-      id:5,
-      userName:'Ebai Jane',
-      profile: pic,
-      bio: 'Full Stack Developer',
-      role: 'Interviewee',
-      startTime: '09:00',
-      endTime: '17:00',
-      status: 'Available',
-      focusArea: 'Amazon Web Services'
-    },
-  ];
 
-  {/*useEffect(() => {
-    const fetchAvailabilities = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/availability');
-        setAvailabilities(response.data);
-      } catch (error) {
-        console.error('Error fetching availabilities:', error);
-      }
-    };
+  // Fetch availabilities from the backend
+  const fetchAvailabilities = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/availabilities/${user.id}`);
+      setAvailabilities([response.data]); // Wrap in array if it's a single record
+    } catch (error) {
+      console.error("Error fetching availability:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchAvailabilities();
-  }, []);*/}
+  }, [user.id]); // Fetch availability when the user changes
 
   return (
-    <div className=" px-20 py-7 text-white">
-
-      <button className='flex items-center justify-center gap-1 bg-purple px-2 mb-6 py-1 rounded-md'>
-        <CgChevronLeft/>
+    <div className="px-20 py-7 text-white">
+      <button className="flex items-center justify-center gap-1 bg-purple px-2 mb-6 py-1 rounded-md">
+        <CgChevronLeft />
         <span>Back</span>
       </button>
+
       <div className="grid grid-cols-3 gap-5">
-        {availabilityCards.map((availability) => (
-          <AvailabilityCard 
-          key={availability.id} 
-          userName={availability.userName}
-          profile={availability.profile}
-          bio={availability.bio}
-          status={availability.status}
-          startTime={availability.startTime}
-          endTime={availability.endTime}
-          rolePreference={availability.role}
-          focusArea={availability.focusArea}
-          />
-        ))}
+        {availabilities.length > 0 ? (
+          availabilities.map((availability) => (
+            <AvailabilityCard
+              key={availability.userId}
+              userName={availability.userName}
+              profile={availability.profile}
+              bio={availability.bio}
+              status={availability.status}
+              startTime={availability.startTime}
+              endTime={availability.endTime}
+              rolePreference={availability.rolePreference}
+              focusArea={availability.focusArea}
+            />
+          ))
+        ) : (
+          <p>No availability set yet.</p>
+        )}
       </div>
     </div>
   );

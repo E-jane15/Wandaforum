@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../Context/UserContext'; // import UserContext
+import axios from 'axios'; // import axios for API requests
 
-const AvailabilityForm = () => {
+const AvailabilityForm = ({onClose}) => {
+  const { user, addAvailability } = useContext(UserContext); // Access addAvailability from context
   const [formData, setFormData] = useState({
     focusArea: '',
     meetingPlatform: '',
@@ -9,6 +12,7 @@ const AvailabilityForm = () => {
     startTime: '',
     endTime: '',
   });
+
 
   // Handle input change
   const handleChange = (e) => {
@@ -19,14 +23,47 @@ const AvailabilityForm = () => {
     }));
   };
 
+  // Fetch the availability data on component mount
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/availabilities/${user.id}`);
+        if (response.data) {
+          setFormData({
+            focusArea: response.data.focusArea || '',
+            meetingPlatform: response.data.meetingPlatform || '',
+            meetingLink: response.data.meetingLink || '',
+            rolePreference: response.data.rolePreference || 'interviewer',
+            startTime: response.data.startTime || '',
+            endTime: response.data.endTime || '',
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching availability:', error);
+      }
+    };
+
+    fetchAvailability();
+  }, [user.id]); // Dependency on user.id to refetch when the user changes
+
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page refresh
-    console.log('Form Data:', formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const availability = { ...formData, userId: user.id };
+    
+    try {
+      await axios.post('http://localhost:3000/availabilities/save', { userId: user.id, ...formData });
+      addAvailability(availability);
+     onClose();
+    } catch (error) {
+      
+    }
+    
+    
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
+    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md bg-opacity-50 z-50">
       <div className="max-w-xl w-full bg-white p-8 rounded-lg shadow-md">
         <form onSubmit={handleSubmit}>
           <p className="text-2xl font-bold mb-6 text-center">Availability Form</p>
@@ -86,7 +123,6 @@ const AvailabilityForm = () => {
               </select>
             </div>
 
-        
             {/* Time Slot (Start & End Time) */}
             <div>
               <label className="block text-sm font-medium text-gray-700">Time Slot</label>
@@ -111,12 +147,22 @@ const AvailabilityForm = () => {
             </div>
 
             {/* Submit Button */}
+            <div className=' flex items-center gap-5 px-6'>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full bg-purple text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Close
+            </button>
             <button
               type="submit"
               className="w-full bg-purple text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Submit
             </button>
+            </div>
+            
           </div>
         </form>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../Components/Navbar/Navbar";
 import hero_image from "../../../assets/hero_image.png";
@@ -20,6 +20,8 @@ import FinalModal from "../../../Components/Modals/FinalModal";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { cancelInterview } from "../../../redux/selectionSlice";
+import { useNavigate } from "react-router-dom";
+import { fetchAllInterviews } from "../../../api/api";
 
 
 function PeermockHome() {
@@ -72,6 +74,25 @@ function PeermockHome() {
   ];
 
   const [openModal, setOpenModal] = useState(false);
+  const [scheduledInterview, setScheduledInterview] = useState(null);
+  const user1=JSON.parse(localStorage.getItem('userData'))
+  const navigate = useNavigate(); 
+
+  const fetchInterviews = async() => { 
+    try {
+      const response = await fetchAllInterviews(user1.id)
+      setScheduledInterview(response)
+    } catch (error) {
+      console.log(error)
+    }
+   }
+
+   useEffect(() => {
+     fetchInterviews()
+   
+   }, [])
+   
+
   const handleOpen = () => {
     if (remainingCredits > 0) {
       document.body.classList.add("overflow-hidden");
@@ -99,6 +120,10 @@ function PeermockHome() {
    }
   };
 
+  const handleJoinCall = (meetingLink) => {
+    window.open(meetingLink, "_blank");
+  };
+
   const [step, setStep] = useState(1); //state for opening the modals
   const credits = 5;
 
@@ -124,8 +149,8 @@ function PeermockHome() {
             step={step}
           />
         ) : step === 4 ? (
-          <TimeModal close={handleClose} setStep={setStep} step={step} />
-        ) : step === 5 ? (<FinalModal close={handleClose} setStep={setStep} step={step}/>) :undefined
+          <TimeModal close={handleClose} setStep={setStep} step={step} setScheduledInterview={setScheduledInterview} />
+        ) : step === 5 ? (<FinalModal close={handleClose} setStep={setStep} step={step} interviewData={scheduledInterview} />) :undefined
       ) : undefined}
       <Navbar />
 
@@ -159,7 +184,7 @@ function PeermockHome() {
       </div>
 
       {/* Upcoming Interviews Section */}
-{scheduledInterviews.length > 0 && (
+{scheduledInterview?.length > 0 && (
   <div className="text-white px-20 mt-12">
     <p className="text-2xl font-bold">Upcoming Interviews</p>
     <div className="mt-6">
@@ -170,16 +195,17 @@ function PeermockHome() {
             <th className="px-4 py-2 ">Type</th>
             <th className="px-4 py-2 ">Questions You'll Ask</th>
             <th className="px-4 py-2 "></th> {/* Cancel column with no heading */}
+            <th className="px-4 py-2 "></th> {/* Join Call column */}
           </tr>
         </thead>
         <tbody>
-        {scheduledInterviews.map((interview, index) => (
+        {scheduledInterview.map((interview, index) => (
                   <tr key={index} className="hover:bg-gray-700">
                     <td className="px-4 py-2 border border-gray-600">
                       {interview.date}, {interview.time}
                     </td>
                     <td className="px-4 py-2 border border-gray-600">
-                      {interview.type}
+                      {interview.interviewType}
                     </td>
                     <td className="px-4 py-2 border border-gray-600">
                       <a href="#" className="text-orange hover:underline">
@@ -192,6 +218,14 @@ function PeermockHome() {
                         onClick={() => handleCancel(index)}
                       >
                         Cancel
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 border border-gray-600">
+                      <button
+                        className="text-orange hover:underline"
+                        onClick={() => handleJoinCall(interview.session.meetingLink)}
+                      >
+                        Join Call
                       </button>
                     </td>
                   </tr>
