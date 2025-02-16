@@ -30,6 +30,7 @@ const handleLogin = async (e) => {
     const response = await loginUser({ email, password });
 
     console.log("Login successful:", response); // ✅ Log response
+    localStorage.setItem('userData', JSON.stringify(response.user))
 
     setUser({ email });
 

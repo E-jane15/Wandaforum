@@ -32,7 +32,8 @@ const PracticeLevelModal = ({setStep, step, close}) => {
       };
 
       const handleClick = (heading) => {
-        dispatch(selectItem({...selectedItem, practice: heading }));
+        console.log('Selected Practice Level:', heading);  // Debugging
+        dispatch(selectItem({ practiceLevel: heading }));
       };
     
   return (

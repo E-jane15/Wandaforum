@@ -5,14 +5,15 @@ import ModalItem2 from '../ModalItem2';
 import { BiMicrophone, BiTime } from 'react-icons/bi';
 import { PiCheck } from 'react-icons/pi';
 
-const FinalModal = ({close, setStep,}) => {
+const FinalModal = ({close, setStep,interviewData}) => {
+  const { date, time, interviewType } = interviewData || {}; // Extract data
   const selections = useSelector((state) => state.selections); // Fetch the Redux state
   console.log(selections);
-  const { date, time } = selections;
+ 
   
   const modalItems = [
         { icon: <BiTime className='size-7'/>,
-          text:`Your AWS interview is scheduled for ${date} at ${time}.Add to your calendar so you don’t forget. `, 
+          text:`Your ${interviewType} is scheduled for ${date} at ${time}.Add to your calendar so you don’t forget. `, 
           heading: '' },
 
         { icon: <BiMicrophone className='size-7'/>,

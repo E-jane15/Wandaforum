@@ -9,6 +9,7 @@ import {
   FaTimes,
   FaAddressBook,
 } from "react-icons/fa";
+import AvailabilityForm from "../../Components/AvailabilityForm";
 
 import { UserContext } from "../../Context/UserContext";
 import { getProfile } from "../../api";
@@ -19,6 +20,13 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarExpanded, setSidebarExpanded] = useState(false); // Default collapsed
   const [isActive, setIsActive] = useState(false); // Active class state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const handleClick = () => {
+    setIsActive(!isActive);
+    setIsModalOpen(true); // Open the modal when the button is clicked
+  };
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -139,6 +147,7 @@ const Dashboard = () => {
                   <FaClipboardList />
                   {sidebarExpanded && <span>Upcoming Interviews</span>}
                 </li>
+                <Link to="/availability-page">
                 <li
                   className="mb-4 flex items-center space-x-2 hover:bg-purple4 p-2 rounded-md cursor-pointer"
                   title="Upcoming Interviews"
@@ -146,6 +155,7 @@ const Dashboard = () => {
                   <FaAddressBook />
                   {sidebarExpanded && <span>Availability page</span>}
                 </li>
+                </Link>
                 <li
                   className="mb-4 flex items-center space-x-2 hover:bg-purple4 p-2 rounded-md cursor-pointer"
                   title="Active Chats"
@@ -179,7 +189,7 @@ const Dashboard = () => {
 
           <div className="mt-6 flex justify-center">
             <button
-              onClick={() => setIsActive(!isActive)}
+              onClick={handleClick}
               className={`px-6 py-3 text-white text-lg font-semibold rounded-full transition-colors duration-300 ${
                 isActive
                   ? "bg-green-500 hover:bg-green-600"
@@ -188,16 +198,19 @@ const Dashboard = () => {
             >
               {isActive ? "In Progress..." : "I'm available"}
             </button>
+            {/* Modal - Only render if isModalOpen is true */}
+            {isModalOpen && <AvailabilityForm onClose={() => setIsModalOpen(false)} />}
           </div>
 
           {/* Quick Access Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+          <div  className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 transition duration-300 ${isModalOpen ? "blur-md pointer-events-none" : ""}`}>
             {["Mock Interviews", "Community", "Questions", "Statistics"].map(
               (title, index) => (
                 <div
                   key={index}
                   className="bg-purple5 p-8 rounded-lg shadow-md  hover:bg-gradient-to-r from-purple to-orange transform hover:scale-105 transition duration-300 transition"
                 >
+                  <Link to={title === "Mock Interviews" ? "/peermock" : undefined}>
                   <h3 className="text-xl font-bold text-orange">{title}</h3>
                   <p className="text-white">
                     {title === "Mock Interviews"
@@ -208,6 +221,7 @@ const Dashboard = () => {
                       ? "Browse or review saved questions"
                       : "See your interview progress"}
                   </p>
+                  </Link>
                 </div>
               )
             )}

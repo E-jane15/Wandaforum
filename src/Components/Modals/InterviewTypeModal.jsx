@@ -37,8 +37,7 @@ const InterviewTypeModal = ({ close, setStep, step }) => {
 
 
   const handleClick = (text) => {
-    dispatch(selectItem({...selectedItem, type: text }));
-    
+    dispatch(selectItem({ interviewType: text })); // Update only the interviewType in the selections
   };
 
   return (
