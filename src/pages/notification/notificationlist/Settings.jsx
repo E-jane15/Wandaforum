@@ -6,18 +6,18 @@ import {
   faTiktok,
   faGoogle,
   faAmazon,
-  faStripe,
-  faApple,
 } from "@fortawesome/free-brands-svg-icons";
-import { faSquare } from "@fortawesome/free-regular-svg-icons";
-import DeleteAccountModal from "./DeleteAccountModal";
+import DeleteAccountModal from "./deleteAccountModal";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Settings = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [isModalOpen, SetisMOdalOpen] = useState(false);
 
   const HandleDeleteClick = () => {
     SetisMOdalOpen(true);
   };
+
   const closeModal = () => {
     SetisMOdalOpen(false);
   };
@@ -33,9 +33,6 @@ const Settings = () => {
     TikTok: true,
     Google: true,
     Amazon: true,
-    Stripe: true,
-    DoorDash: true,
-    Apple: false,
   });
 
   const [recordingEnabled, setRecordingEnabled] = useState(true);
@@ -55,14 +52,16 @@ const Settings = () => {
     setRecordingEnabled(!recordingEnabled);
   };
 
+  const handleUpgradeClick = () => {
+    navigate('/pricing'); // Navigate to the pricing page
+  };
+
   return (
     <div className="min-h-screen bg-darkpurple-100 text-white ml-9">
       <div className="max-w- mx-auto bg-darkpurple shadow-md ml-9 p-8">
-        <h2 className="text-2xl font-bold mb-6 text-white-">
-          Notification Settings
-        </h2>
+        <h2 className="text-2xl font-bold text-purple2  mb-6">Notification Settings</h2>
 
-        {/*=============== Email=================== Notifications */}
+        {/* Email Notifications */}
         <div className="mb-8 text-white">
           <p className="text-lg font-medium mb-4">When would you like to receive an email?</p>
           <div className="flex items-center mb-3">
@@ -73,9 +72,7 @@ const Settings = () => {
               onChange={() => toggleNotification("replies")}
               className="w-5 h-5 text-blue-500 border-gray-300 rounded focus:ring focus:ring-blue-400 focus:ring-opacity-50"
             />
-            <label htmlFor="replies" className="ml-3 text-white-700">
-              Someone replies to you
-            </label>
+            <label htmlFor="replies" className="ml-3">Someone replies to you</label>
           </div>
           <div className="flex items-center">
             <input
@@ -85,43 +82,30 @@ const Settings = () => {
               onChange={() => toggleNotification("comments")}
               className="w-5 h-5 text-blue-500 border-gray-300 rounded focus:ring focus:ring-blue-400 focus:ring-opacity-50"
             />
-            <label htmlFor="comments" className="ml-3 text-white-700">
-              Someone comments on a question you've interacted with
-            </label>
+            <label htmlFor="comments" className="ml-3">Someone comments on a question you've interacted with</label>
           </div>
         </div>
 
-        {/*==================== Company and User Following=========================== */}
+        {/* Companies and Users */}
         <div className="mb-8">
-          <p className="text-lg  mb-4 text-white">
-            Companies and users you are following
-          </p>
+          <p className="text-lg  text-gold mb-4">Companies and users you are following</p>
           <div className="grid grid-cols-2 gap-6">
-            {/*========================== Companies=============================== */}
             <div>
-              <p className="font-semibold  font-semibold text-white-600 mb-2">Companies</p>
+              <p className="font-semibold mb-2">Companies</p>
               {Object.keys(companySettings).map((company) => (
-                <div
-                  key={company}
-                  className="flex items-center justify-between mb-3"
-                >
+                <div key={company} className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <FontAwesomeIcon
-                      icon={
-                        {
-                          Microsoft: faMicrosoft,
-                          Meta: faMeta,
-                          TikTok: faTiktok,
-                          Google: faGoogle,
-                          Amazon: faAmazon,
-                          Stripe: faStripe,
-                          DoorDash: faSquare, 
-                          Apple: faApple,
-                        }[company]
-                      }
+                      icon={{
+                        Microsoft: faMicrosoft,
+                        Meta: faMeta,
+                        TikTok: faTiktok,
+                        Google: faGoogle,
+                        Amazon: faAmazon,
+                      }[company]}
                       className="text-2xl text-yellow-600"
                     />
-                    <span className="text-white-700">{company}</span>
+                    <span>{company}</span>
                   </div>
                   <button
                     onClick={() => toggleCompany(company)}
@@ -138,24 +122,19 @@ const Settings = () => {
                 </div>
               ))}
             </div>
-            {/*============================ Users=========================== */}
             <div>
-              <p className="font-semibold text-white-600 mb-2">Users</p>
-              <p className="text-white-500">Not following any users yet.</p>
+              <p className="font-semibold mb-2 text-gold">Users</p>
+              <p>Not following any users yet.</p>
             </div>
           </div>
         </div>
 
-        {/*==========  ======= Settings========== */}
+        {/* Wandaprep Practice Settings */}
         <div>
-          <h2 className="text-lg font-medium mb-4 font-semibold">Wandaprep Practice Settings</h2>
-          <p className="text-white-700 mb-4">
-            Peer mock interviews on Wandaprep Practice may be recorded in order <br />
-            to automatically generate transcriptions and provide feedback for you.
-          </p>
-
+          <h2 className="text-lg font-medium mb-4 text-gold animate-bounce">Wandaprep Practice Settings</h2>
+          <p className="mb-4">Peer mock interviews may be recorded...</p>
           <div className="flex items-center">
-            <span className="text-white-700 mr-3">Recording enabled</span>
+            <span className="mr-3">Recording enabled</span>
             <button
               onClick={toggleRecording}
               className={`w-10 h-6 flex items-center rounded-full ${
@@ -171,24 +150,34 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className=" mt-9 font-semibold text-white">Wandaprep Membership</div>
-        <p className="text-grey mt-4 text-grey text-white-700"> You aren't a Wandaprep Member yet. Your career depends on your next <br />
-        interview. Want unlimited access to our courses and Slack Channel? Get <br />
-        Wandaprep's membership today.</p>
+        {/* Membership Information */}
+        <div className="mt-9 font-semibold text-gold animate-bounce">Wandaprep Membership</div>
+        <p className="mt-4">You aren't a Wandaprep Member yet...</p>
+        
+        {/* Upgrade Plan Button */}
 
-        <div>
-          <button className="bg-purple text-white py-2 px-4 rounded hover:bg-yellow-500 mt-6">Upgrade plan</button>
-        </div>
+        <div className="mt-4">
+  {/* Upgrade Plan Button */}
+  <button
+    className="bg-purple text-white py-2 px-4 rounded hover:bg-yellow-500 mt-6 block w-19 h-14"
+    onClick={handleUpgradeClick} // Handle click to navigate
+  >
+    Upgrade Plan
+  </button>
 
-        {/*========================= Delete Account Button========================== */}
-        <button
-          className="bg-white text-purple py-3 px-4 rounded-xl border-2 border-purple hover:bg-yellow-500 mt-6"
-          onClick={HandleDeleteClick} 
-        >
-          Delete Account
-        </button>
+  {/* Delete Account Button */}
+  <button
+    className="bg-white text-purple py-2 px-3 w-19 h-14 boder-b boder-red rounded-xl border-2 border-purple hover:bg-yellow-500 mt-6 block "
+    onClick={HandleDeleteClick}
+  >
+    Delete Account
+  </button>
+</div>
 
-        {/*======================== Delete Account Modal========================== */}
+
+
+ 
+        {/* Delete Account Modal */}
         {isModalOpen && <DeleteAccountModal closeModal={closeModal} />}
       </div>
     </div>

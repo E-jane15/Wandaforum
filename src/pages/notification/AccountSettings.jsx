@@ -3,9 +3,9 @@ import { UserContext } from "../../Context/UserContext";
 import Navbar from "../../Components/Navbar/Navbar";
 import { FaCameraRetro } from "react-icons/fa6";
 import activity from "../../assets/Profile .png";
-import Details from "../notification/notificationlist/Details"; 
-// import Details from "../notification/notificationlist/Details";
-const Profile = () => {
+
+
+const AccountSettings  = () => {
   const { user, setUser } = useContext(UserContext);
   const [uploadedImage, setUploadedImage] = useState(
     user.profilePicture || null
@@ -202,7 +202,6 @@ const Profile = () => {
             >
               Settings
             </button>
-
           </div>
           <div className="border border-gray-600"></div>
 
@@ -228,4 +227,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AccountSettings;
