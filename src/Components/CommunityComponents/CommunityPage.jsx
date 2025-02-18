@@ -12,9 +12,9 @@ const CommunityPage = ({ selectedDomains, onLogout }) => {
   const [searchQuery, setSearchQuery] = useState("")
   const [loading, setLoading] = useState(false)
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false)
-
-  const [activeTab, setActiveTab] = useState("all")
   const [sortBy, setSortBy] = useState("recent")
+  
+  const [activeTab, setActiveTab] = useState("all")
   
   const observerTarget = useRef(null)
   const searchTimeout = useRef(null)
@@ -133,6 +133,7 @@ const CommunityPage = ({ selectedDomains, onLogout }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple3 to-dark">
+      <Navbar/>
       <div className="bg-purple3/50 backdrop-blur-lg sticky top-0 z-10 border-b border-purple/20">
         <div className="container mx-auto px-4 py-4">
         <h1 className="text-lg md:text-4xl bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent font-semibold mb-6 leading-tight">

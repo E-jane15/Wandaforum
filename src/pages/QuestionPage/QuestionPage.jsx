@@ -54,7 +54,7 @@ const QuestionPage = () => {
       <Navbar />
       <div className="flex">
         <Sidebar onCollapsedChange={setIsSidebarCollapsed} />
-       
+        
         <main className={`
           flex-1 
           transition-all 

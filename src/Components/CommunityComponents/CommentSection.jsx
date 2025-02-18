@@ -121,7 +121,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
         />
         <div className="flex-1 bg-purple/10 rounded-xl p-3 relative">
           <div className="flex justify-between items-center">
-            <span className="font-semibold text-sm text-white">{comment.author.name}</span>
+            <span className="font-medium text-sm">{comment.author.name}</span>
             <span className="text-xs text-gray-400">{comment.timestamp}</span>
           </div>
 
@@ -133,7 +133,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
               className="w-full bg-purple/20 border border-purple/30 rounded-lg p-2 mt-2 text-white focus:outline-none"
             />
           ) : (
-            <p className="text-sm mt-1 text-white">{comment.content}</p>
+            <p className="text-sm mt-1">{comment.content}</p>
           )}
 
           {/* Comment actions */}
@@ -210,7 +210,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
                 onClick={() => handleSubmitReply(comment.id)}
                 className="mt-2 bg-purple/20 text-purple px-4 py-2 rounded-lg hover:bg-purple/30 transition-colors"
               >
-               Reply
+                Submit Reply
               </button>
             </div>
           )}
