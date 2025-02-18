@@ -12,7 +12,11 @@ import {
 } from 'lucide-react';
 
 const Sidebar = ({ onCollapsedChange }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // Initialize state from localStorage or default to false
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    return savedState ? JSON.parse(savedState) : false;
+  });
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
@@ -21,7 +25,10 @@ const Sidebar = ({ onCollapsedChange }) => {
     const checkScreenSize = () => {
       const isMobileScreen = window.innerWidth < 768;
       setIsMobile(isMobileScreen);
-      setIsCollapsed(isMobileScreen);
+      if (isMobileScreen) {
+        setIsCollapsed(true);
+        localStorage.setItem('sidebarCollapsed', 'true');
+      }
     };
 
     checkScreenSize();
@@ -29,13 +36,15 @@ const Sidebar = ({ onCollapsedChange }) => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Notify parent component when collapsed state changes
+  // Update localStorage and notify parent when collapsed state changes
   useEffect(() => {
+    localStorage.setItem('sidebarCollapsed', JSON.stringify(isCollapsed));
     onCollapsedChange?.(isCollapsed);
   }, [isCollapsed, onCollapsedChange]);
 
   const handleNavigation = (path) => {
     navigate(path);
+    // Don't modify collapse state on navigation
   };
 
   const handleToggle = () => {
@@ -111,4 +120,4 @@ const Sidebar = ({ onCollapsedChange }) => {
   );
 };
 
-export default Sidebar
+export default Sidebar;

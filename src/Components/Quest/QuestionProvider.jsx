@@ -35,25 +35,46 @@ const getSavedQuestions = () => {
   return saved ? JSON.parse(saved) : [];
 };
 
+const getAskedQuestions = () => {
+  const asked = localStorage.getItem('askedQuestions');
+  console.log("Loaded askedQuestions from localStorage:", asked); // Debugging
+  return asked ? JSON.parse(asked) : [];
+};
+
 export const QuestionProvider = ({ children }) => {
-  const [questions, setQuestions] = useState(INITIAL_QUESTIONS);
-  const [savedQuestions, setSavedQuestions] = useState(getSavedQuestions());
-
-  // Save to localStorage whenever savedQuestions changes
-  useEffect(() => {
-    localStorage.setItem('savedQuestions', JSON.stringify(savedQuestions));
-  }, [savedQuestions]);
-
-  const addQuestion = (newQuestion) => {
-    const questionWithMetadata = {
-      ...newQuestion,
-      id: Date.now(),
-      timestamp: new Date(),
-      likes: 0,
-      replies: []
-    };
-    setQuestions(prev => [...prev, questionWithMetadata]);
+  const getAskedQuestions = () => {
+    const asked = localStorage.getItem('askedQuestions');
+    return asked ? JSON.parse(asked) : [];
   };
+  
+    const [questions, setQuestions] = useState(INITIAL_QUESTIONS);
+    const [savedQuestions, setSavedQuestions] = useState(getSavedQuestions());
+    const [askedQuestions, setAskedQuestions] = useState(getAskedQuestions()); // Load asked questions
+  
+    // Save to localStorage whenever savedQuestions or askedQuestions changes
+    useEffect(() => {
+      localStorage.setItem('savedQuestions', JSON.stringify(savedQuestions));
+    }, [savedQuestions]);
+  
+    useEffect(() => {
+      console.log("QuestionProvider State - askedQuestions:", askedQuestions); // Debugging
+    }, [askedQuestions]);
+
+    const addQuestion = (newQuestion) => {
+      const questionWithMetadata = {
+        ...newQuestion,
+        id: Date.now(),
+        timestamp: new Date(),
+        likes: 0,
+        replies: []
+      };
+      setQuestions(prev => [...prev, questionWithMetadata]);
+      setAskedQuestions(prev => {
+        const updatedAskedQuestions = [...prev, questionWithMetadata];
+        console.log("Updated Asked Questions:", updatedAskedQuestions); // Debugging
+        return updatedAskedQuestions;
+      });
+    };
 
   const saveQuestion = (question) => {
     setSavedQuestions(prev => {
@@ -129,16 +150,19 @@ export const QuestionProvider = ({ children }) => {
   };
 
   return (
-    <QuestionContext.Provider value={{
-      questions,
-      savedQuestions,
-      addQuestion,
-      saveQuestion,
-      removeSavedQuestion,
-      filterQuestions,
-      likeQuestion,
-      addReply
-    }}>
+    
+      <QuestionContext.Provider value={{
+        questions,
+        savedQuestions,
+        askedQuestions, // Add askedQuestions to the context value
+        addQuestion,
+        saveQuestion,
+        removeSavedQuestion,
+        filterQuestions,
+        likeQuestion,
+        addReply
+      }}>
+       
       {children}
     </QuestionContext.Provider>
   );
@@ -149,5 +173,8 @@ export const useQuestions = () => {
   if (!context) {
     throw new Error('useQuestions must be used within a QuestionProvider');
   }
-  return context;
+  return {
+    ...context,
+    askedQuestions: context.askedQuestions || [] 
+  };
 };

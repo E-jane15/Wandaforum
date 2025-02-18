@@ -32,7 +32,7 @@ export function PostCard({ post }) {
 
   return (
     <div 
-      className="bg-purple3/30 backdrop-blur-lg rounded-xl border border-purple/20 hover:border-purple/40 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden cursor-pointer"
+      className="bg-purple3/30 backdrop-blur-lg rounded-xl border border-orange/20  transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden cursor-pointer"
       onClick={toggleExpand} // Expand the post when clicked outside the comment section
     >
       <div className="p-6">

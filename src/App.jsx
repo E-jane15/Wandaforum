@@ -24,14 +24,14 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import ProfileCard from "./pages/ProfileCard/ProfileCard";
 import { QuestionProvider } from './Components/Quest/QuestionProvider';
 import AvailabilityForm from "./Components/AvailabilityForm";
-import AvailabilityPage from "./Components/AvailabilityPage";
-import SavedQuestions from './pages/QuestionPage/SavedQuestions';
+import WelcomeSection from "./Components/CommunityComponents/Welcome";
+import AvailabilityPage from './Components/AvailabilityPage';
 import AskedQuestionsPage from './pages/QuestionPage/AskedQuestionsPage';
+import SavedQuestions from './pages/QuestionPage/SavedQuestions';
+import TrendingQuestionsPage from './pages/QuestionPage/TrendingQuestionsPage';
 import HelpCenterPage from './pages/QuestionPage/HelpCenterPage';
 import SettingsPage from './pages/QuestionPage/SettingsPage';
-import TrendingQuestionsPage from './pages/QuestionPage/TrendingQuestionsPage';
-import UserProfile from "./pages/Community/UserProfile";
-import WelcomeSection from "./Components/CommunityComponents/Welcome";
+
 
 const App = () => {
   return (

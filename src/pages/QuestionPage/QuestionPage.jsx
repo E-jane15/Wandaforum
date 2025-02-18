@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { QuestionProvider, useQuestions } from '../../Components/Quest/QuestionProvider';
-import AddInterviewButton from '../../Components/Quest/AddInterviewButton';
-import QuestionCard from '../../Components/Quest/QuestionCard';
-import Sidebar from '../../Components/Quest/Sidebar';
-import SearchAndFilter from '../../Components/Quest/SearchAndFilter';
+import { useState } from "react";
+import { useQuestions } from "../../Components/Quest/QuestionProvider";
+import Navbar from "../../Components/Navbar/Navbar";
+import Sidebar from "../../Components/Quest/Sidebar";
 import AddQuestionModal from '../../Components/Quest/AddQuestionModal';
-import PrePostedQuestions from '../../Components/Quest/PrePostedQuestions';
-import Navbar from '../../Components/Navbar/Navbar';
+import QuestionCard from "../../Components/Quest/QuestionCard";
+import SearchAndFilter from '../../Components/Quest/SearchAndFilter';
+import AddInterviewButton from '../../Components/Quest/AddInterviewButton';
 
-const QuestionPageContent = () => {
+
+
+const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const { questions, addQuestion, filterQuestions, isLoading } = useQuestions();
@@ -53,7 +54,7 @@ const QuestionPageContent = () => {
       <Navbar />
       <div className="flex">
         <Sidebar onCollapsedChange={setIsSidebarCollapsed} />
-        
+       
         <main className={`
           flex-1 
           transition-all 
@@ -113,12 +114,4 @@ const QuestionPageContent = () => {
   );
 };
 
-const QuestionPage = () => {
-  return (
-    <QuestionProvider>
-      <QuestionPageContent />
-    </QuestionProvider>
-  );
-};
-
-export default QuestionPage;
+export default QuestionPage

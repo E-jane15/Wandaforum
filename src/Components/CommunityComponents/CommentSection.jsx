@@ -121,7 +121,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
         />
         <div className="flex-1 bg-purple/10 rounded-xl p-3 relative">
           <div className="flex justify-between items-center">
-            <span className="font-medium text-sm">{comment.author.name}</span>
+            <span className="font-semibold text-sm text-white">{comment.author.name}</span>
             <span className="text-xs text-gray-400">{comment.timestamp}</span>
           </div>
 
@@ -133,7 +133,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
               className="w-full bg-purple/20 border border-purple/30 rounded-lg p-2 mt-2 text-white focus:outline-none"
             />
           ) : (
-            <p className="text-sm mt-1">{comment.content}</p>
+            <p className="text-sm mt-1 text-white">{comment.content}</p>
           )}
 
           {/* Comment actions */}
@@ -210,7 +210,7 @@ const CommentSection = ({ postId, initialComments = [] }) => {
                 onClick={() => handleSubmitReply(comment.id)}
                 className="mt-2 bg-purple/20 text-purple px-4 py-2 rounded-lg hover:bg-purple/30 transition-colors"
               >
-                Submit Reply
+               Reply
               </button>
             </div>
           )}
@@ -249,12 +249,12 @@ const CommentSection = ({ postId, initialComments = [] }) => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Write a comment..."
-          className="flex-1 bg-purple/10 border border-purple/20 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-purple/50"
+          className="flex-1 bg-purple3/30 border border-white/20 rounded-xl px-4 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white/20"
         />
         <button
           type="submit"
           disabled={!newComment.trim()}
-          className="bg-purple/20 text-purple p-2 rounded-xl disabled:opacity-50 hover:bg-purple/30 transition-colors"
+          className="bg-orange text-white p-2 rounded-xl  hover:bg-purple/30 transition-colors"
         >
           <Send className="w-4 h-4" />
         </button>
