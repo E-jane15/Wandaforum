@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import HomeScreen from "./pages/Home/Home";
@@ -30,6 +31,7 @@ import TrendingQuestionsPage from "./pages/QuestionPage/TrendingQuestionsPage";
 import UserProfile from "./pages/Community/UserProfile";
 import WelcomeSection from "./Components/CommunityComponents/Welcome";
 import AvailabilityForm from "./Components/AvailabilityForm";
+import AskedQuestions from "./pages/QuestionPage/AskedQuestionsPage";
 
 const App = () => {
   return (
@@ -63,7 +65,7 @@ const App = () => {
           <Route path="/availability-form" element={<AvailabilityForm />} />
           <Route path="/availability-page" element={<AvailabilityPage />} />
           <Route path="/user/:userId" element={<UserProfile />} />
-
+          <Route path="/asked-questions" element={<AskedQuestions/>}/>
           <Route path="/user/:userId" element={<UserProfile />} />
           <Route path="/availability-page" element={<AvailabilityPage />} />
         </Routes>

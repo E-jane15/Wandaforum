@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../Context/UserContext";
 import { selectItem, addInterview, resetSelections } from "../../redux/selectionSlice";
-import { scheduleInterview } from "../../api/api"; 
+import { scheduleInterview } from '../../api/Api';
 import ModalStructure from "./ModalStructure";
 
 
