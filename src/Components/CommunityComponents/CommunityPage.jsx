@@ -4,17 +4,18 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { Search, Plus } from "lucide-react"
 import { PostCard } from "./PostCard"
 import { CreatePostModal } from "./CreatePostModal"
+import Navbar from "../Navbar/Navbar"
 
-const CommunityPage = () => {
+const CommunityPage = ({ selectedDomains, onLogout }) => {
   const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState("all")
-  const [sortBy, setSortBy] = useState("recent")
   const [searchQuery, setSearchQuery] = useState("")
   const [loading, setLoading] = useState(false)
-  const [selectedDomains, setSelectedDomains] = useState([])
-  const [activeTab, setActiveTab] = useState("all")
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false)
-
+  const [sortBy, setSortBy] = useState("recent")
+  
+  const [activeTab, setActiveTab] = useState("all")
+  
   const observerTarget = useRef(null)
   const searchTimeout = useRef(null)
 
@@ -36,10 +37,12 @@ const CommunityPage = () => {
     [selectedDomains],
   )
 
+
   useEffect(() => {
     const storedDomains = localStorage.getItem("selectedDomains")
-    if (storedDomains) {
-      setSelectedDomains(JSON.parse(storedDomains))
+    if (!storedDomains) {
+      // Redirect to welcome page if no domains are selected
+      window.location.href = "/welcome"
     }
     setPosts(Array.from({ length: 10 }, (_, i) => generatePost(i)))
   }, [generatePost])
@@ -130,8 +133,13 @@ const CommunityPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple3 to-dark">
+      <Navbar/>
       <div className="bg-purple3/50 backdrop-blur-lg sticky top-0 z-10 border-b border-purple/20">
         <div className="container mx-auto px-4 py-4">
+        <h1 className="text-lg md:text-4xl bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent font-semibold mb-6 leading-tight">
+          WandaForum Community
+        </h1>
+
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300" />

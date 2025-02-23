@@ -99,7 +99,6 @@ export default function WelcomeSection({ onGetStarted }) {
 
   const handleDomainSubmit = useCallback((selectedDomains) => {
     console.log('Selected Domains:', selectedDomains);
-    // Perform further actions with selected domains
     onGetStarted?.(selectedDomains);
   }, [onGetStarted]);
 
@@ -107,14 +106,8 @@ export default function WelcomeSection({ onGetStarted }) {
     <div className="bg-dark min-h-screen text-white">
       <Navbar />
       <div className="container mx-auto px-4 py-16">
-        <div className=" mb-6 grid md:grid-cols-2 gap-12 items-center">
+        <div className="mb-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
-            {/* <div className="flex items-center mb-4">
-              <span className="bg-purple/20 text-purple px-3 py-1 rounded-full text-sm mr-3 animate-pulse">
-                New Platform
-              </span>
-              <span className="text-gray-300">Beta v3.1</span>
-            </div> */}
             <h1 className="text-5xl md:text-6xl bg-gradient-to-r from-purple2 to-orange/80 bg-clip-text text-transparent font-extrabold mb-6 leading-tight">
               Welcome to the Community
             </h1>

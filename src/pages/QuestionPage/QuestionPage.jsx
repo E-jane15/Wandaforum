@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import { QuestionProvider, useQuestions } from '../../Components/Quest/QuestionProvider';
-import AddInterviewButton from '../../Components/Quest/AddInterviewButton';
-import QuestionCard from '../../Components/Quest/QuestionCard';
-import Sidebar from '../../Components/Quest/Sidebar';
-import SearchAndFilter from '../../Components/Quest/SearchAndFilter';
+import { useState } from "react";
+import { useQuestions } from "../../Components/Quest/QuestionProvider";
+import Navbar from "../../Components/Navbar/Navbar";
+import Sidebar from "../../Components/Quest/Sidebar";
 import AddQuestionModal from '../../Components/Quest/AddQuestionModal';
-import PrePostedQuestions from '../../Components/Quest/PrePostedQuestions';
-import Navbar from '../../Components/Navbar/Navbar';
+import QuestionCard from "../../Components/Quest/QuestionCard";
+import SearchAndFilter from '../../Components/Quest/SearchAndFilter';
+import AddInterviewButton from '../../Components/Quest/AddInterviewButton';
 
-const QuestionPageContent = () => {
+
+
+const QuestionPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { questions, addQuestion, filterQuestions } = useQuestions();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const { questions, addQuestion, filterQuestions, isLoading } = useQuestions();
   const [filteredQuestions, setFilteredQuestions] = useState([]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#281b32] flex items-center justify-center">
+        <p className="text-white">Loading...</p>
+      </div>
+    );
+  }
 
   const handleAddQuestion = (newQuestion) => {
     addQuestion(newQuestion);
@@ -19,17 +29,14 @@ const QuestionPageContent = () => {
   };
 
   const handleSearch = (searchTerm) => {
-    console.log("Search term received:", searchTerm); // Debugging
     if (!searchTerm.trim()) {
-      setFilteredQuestions([]); // Reset filtered questions
+      setFilteredQuestions([]);
       return;
     }
-
     const filtered = questions.filter(q => 
       q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       q.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log("Filtered questions:", filtered); // Debugging
     setFilteredQuestions(filtered);
   };
 
@@ -46,9 +53,17 @@ const QuestionPageContent = () => {
     <div className="min-h-screen bg-[#281b32]">
       <Navbar />
       <div className="flex">
-        <Sidebar />
+        <Sidebar onCollapsedChange={setIsSidebarCollapsed} />
         
-        <main className="flex-1 ml-72 mr-8 py-8">
+        <main className={`
+          flex-1 
+          transition-all 
+          duration-300
+          py-8
+          ${isSidebarCollapsed ? 'ml-28' : 'ml-72'} 
+          mr-8
+          md:px-4
+        `}>
           <div className="max-w-5xl mx-auto px-4">
             <header className="flex justify-between items-center mb-8">
               <div>
@@ -99,12 +114,4 @@ const QuestionPageContent = () => {
   );
 };
 
-const QuestionPage = () => {
-  return (
-    <QuestionProvider>
-      <QuestionPageContent />
-    </QuestionProvider>
-  );
-};
-
-export default QuestionPage;
+export default QuestionPage

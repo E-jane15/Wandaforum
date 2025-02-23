@@ -1,7 +1,10 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://your-backend-url/api'; // Replace with your backend URL
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+console.log(API_BASE_URL);  // Output will be: http://localhost:3000
+
+ // Replace with your backend URL
 
 export const fetchQuestions = async () => {
   const response = await axios.get(`${API_BASE_URL}/questions`);

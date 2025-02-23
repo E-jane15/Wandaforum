@@ -47,7 +47,7 @@ const QuestionCard = ({ question }) => {
           >
             <Bookmark 
               size={16} 
-              className={`mr-2 ${isSaved ? 'text-purple-400' : ''}`} 
+              className={`mr-2 ${isSaved ? 'text-purple' : ''}`} 
             /> 
             {isSaved ? 'Unsave Question' : 'Save Question'}
           </button>

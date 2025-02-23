@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { cancelInterview } from "../../../redux/selectionSlice";
 import { useNavigate } from "react-router-dom";
-import { fetchAllInterviews } from "../../../api/api";
+import { fetchAllInterviews } from "../../../api/Api";
 
 
 function PeermockHome() {
